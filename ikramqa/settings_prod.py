@@ -202,7 +202,7 @@ STORAGES = {
         "OPTIONS": {
             "azure_container": 'media',
             "account_key": config('ACCOUNT_KEY'),
-            "account_name": "ikramqa",
+            "account_name": config('ACCOUNT_NAME'),
             "overwrite_files" : True,
         },
     },
@@ -211,7 +211,7 @@ STORAGES = {
         "OPTIONS": {
             "azure_container": 'static',
             "account_key": config('ACCOUNT_KEY'),
-            "account_name": "ikramqa",
+            "account_name": config('ACCOUNT_NAME'),
             }
     },
 }
