@@ -202,7 +202,7 @@ STORAGES = {
         "OPTIONS": {
             "azure_container": 'media',
             # "connection_string": 'SharedAccessSignature=sv=2023-01-03&ss=btqf&srt=sco&st=2024-03-08T05%3A59%3A00Z&se=2025-03-09T05%3A59%3A00Z&sp=rwl&sig=q5znqFlJkpdCbKUz8rFiGt3HCXDA7C18a4vfjMgj87Y%3D;BlobEndpoint=https://ikramtest.blob.core.windows.net/;FileEndpoint=https://ikramtest.file.core.windows.net/;QueueEndpoint=https://ikramtest.queue.core.windows.net/;TableEndpoint=https://ikramtest.table.core.windows.net/;',
-            "account_key": '5yIe3Kbm8L2xfuyMc14cCfasl8FNtrerZsQ60Zv3hh3UKhhVkfxWdlOVCZJ1OVeAc5fkasIiU3Cq+AStq2GTrA==',
+            "account_key": config('ACCOUNT_KEY'),
             "account_name": "ikramqa",
             "overwrite_files" : True,
         },
@@ -211,7 +211,7 @@ STORAGES = {
         "BACKEND": "storages.backends.azure_storage.AzureStorage",
         "OPTIONS": {
             "azure_container": 'static',
-            "account_key": '5yIe3Kbm8L2xfuyMc14cCfasl8FNtrerZsQ60Zv3hh3UKhhVkfxWdlOVCZJ1OVeAc5fkasIiU3Cq+AStq2GTrA==',
+            "account_key": config('ACCOUNT_KEY'),
             "account_name": "ikramqa",
             # "connection_string": 'SharedAccessSignature=sv=2023-01-03&ss=btqf&srt=sco&st=2024-03-08T05%3A59%3A00Z&se=2025-03-09T05%3A59%3A00Z&sp=rwl&sig=q5znqFlJkpdCbKUz8rFiGt3HCXDA7C18a4vfjMgj87Y%3D;BlobEndpoint=https://ikramtest.blob.core.windows.net/;FileEndpoint=https://ikramtest.file.core.windows.net/;QueueEndpoint=https://ikramtest.queue.core.windows.net/;TableEndpoint=https://ikramtest.table.core.windows.net/;',
         }
