@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container fill">
+    {% if name == 'product' %}
+        <div class="container mt-5 mb-5">
+            <h2 class="text-center">Product Inspection</h2>
+        </div>
+        <div class="container mt-5 mb-5">
+            {% include 'certificate/product_certification.html' %}
+        </div>
+    {% elif name == 'ready-mixed' %}
+        <div class="container mt-5 mb-5">
+            <h2 class="text-center">Ready Mixed Concrete Certification</h2>
+        </div>
+        <div class="container mt-5 mb-5">
+            {% include 'certificate/readymixedconcrete.html' %}
+        </div>
+    {% elif name == 'material-testing' %}
+        <div class="container mt-5 mb-5">
+            <h2 class="text-center">Laboratory Material Testing</h2>
+        </div>
+        <div class="container mt-5 mb-5">
+            {% include 'certificate/material-testing.html' %}
+        </div>
+    {% elif name == 'inspection' %}
+        <div class="container mt-5 mb-5">
+            <h2 class="text-center">Inspection</h2>
+        </div>
+        <div class="container mt-5 mb-5">
+            {% include 'certificate/inspection.html' %}
+        </div>
+    {% elif name == 'sample' %}
+        <div class="container mt-5 mb-5">
+            <h2 class="text-center">Sample & Consignment</h2>
+        </div>
+        <div class="container mt-5 mb-5">
+            {% include 'certificate/sampling_consignment.html' %}
+        </div>
+    {% elif name == 'government' %}
+        <div class="container mt-5 mb-5">
+            <h2 class="text-center">Government Product Listing</h2>
+        </div>
+        <div class="container mt-5 mb-5">
+            {% include 'certificate/government_product.html' %}
+        </div>
+    {% elif name == 'government' %}
+        <div class="container mt-5 mb-5">
+            <h2 class="text-center">Government Product Listing</h2>
+        </div>
+        <div class="container mt-5 mb-5">
+            {% include 'certificate/government_product.html' %}
+        </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

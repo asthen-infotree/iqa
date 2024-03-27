@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="mt-5 ">
+  <h2 class="text-center">Directory</h2>
+</div>
+<div class="container fill mt-5 mb-5">
+    <p>1. Publish to comply standard<br/>
+        2. Publish to comply SPP 7 (Local- SBB)</p>
+    <br/>
+    <div class="row">
+        <div class="col-sm-4 mb-3 mb-sm-0">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Senarai Bahan Barangan Binaan Tempatan Tahun 2014</h5>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <a href="{% static '/files/Senarai_Bahan_Barangan_2014.pdf' %}" class="btn btn-primary" target="_blank">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Senarai Bahan Barangan Binaan Tempatan Tahun 2015</h5>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <a href="{% static '/files/senarai_bahan_barangan_2015.pdf' %}" class="btn btn-primary" target="_blank">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

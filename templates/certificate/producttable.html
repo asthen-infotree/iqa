@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<!-- Load dependencies -->
+{% load static %}
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"-->
+<!--        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="-->
+<!--        crossorigin="anonymous"></script>-->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+    datatableview.initialize($('.datatable'))
+});
+</script>
+<!-- Load js for initializing tables via their server-side options -->
+<script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
+
+<!-- Render the table skeleton, includes the .datatable class for the on-ready initializer.jquery-3.3.1, 1.10.19-->
+<div class="container-fluid fill mt-5  mb-5" style="min-height:80vh;">
+    {{ datatable }}
+</div>
+
+{% endblock %}

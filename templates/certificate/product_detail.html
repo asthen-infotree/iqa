@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load extra_filter %}
+{% block content %}
+
+<div class="container-md fill mt-5 mb-5">
+
+        <div class="row mb-3">
+            <div class="col"><h3>Details of Certificate of Conformity</h3></div>
+            <div class="col d-flex flex-row-reverse">
+                <button type="button" class="btn btn-primary" onClick="newWindow = window.open('{{ product.qr_image.url }}');">
+                    QR Code
+                </button>
+                </div>
+        </div>
+
+
+    <table class="table table-bordered producttable">
+        <tr>
+            <td class="green">Certificate No</td>
+            <td>{{ product.certificate_no }}</td>
+        </tr>
+        <tr>
+            <td class="green">Expiry Date</td>
+            <td>{{ product.expiry_date|date:"d.m.Y" }}</td>
+        </tr>
+        <tr>
+            <td class="green">Name of Certificate Holder</td>
+            <td>{{ product.certificate_holder.name }}</td>
+        </tr>
+        <tr>
+            <td class="green">Address of Certificate Holder</td>
+            <td>{{ product.holder_address.address }}, {{ product.holder_address.address2 }}, {{ product.holder_address.address3 }},
+                {{ product.holder_address.postcode }}, {{ product.holder_address.city }}</td>
+        </tr>
+        <tr>
+            <td class="green">Status of Certificate Holder</td>
+            <td>{{ product.holder_address.get_status_display }}</td>
+        </tr>
+        <tr>
+            <td class="green">Product Name</td>
+            <td>{{ product.product_name }}</td>
+        </tr>
+        <tr>
+            <td class="green">Product Standard</td>
+            <td>{{ product.product_standard }}</td>
+        </tr>
+        <tr>
+            <td class="green">Product Description</td>
+            <td>{{ product.product_description }}</td>
+        </tr>
+        <tr>
+            <td class="green">Brand</td>
+            <td>{{ product.brands.all|join:", " }}</td>
+        </tr>
+        <tr>
+            <td class="green">Country of Origin</td>
+            <td>{{ product.country.name }}</td>
+        </tr>
+        <tr>
+            <td class="green">Manufacturer's Name</td>
+            <td>{{ product.manufacturer }}</td>
+        </tr>
+        <tr>
+            <td class="green">Address of Manufacturer</td>
+            <td>{{ product.manufacturer_address.address }}, {{ product.manufacturer_address.address2 }}, {{ product.manufacturer_address.address3 }},
+                {{ product.manufacturer_address.postcode }}, {{ product.manufacturer_address.city }}</td>
+        </tr>
+    </table>
+
+    <br/>
+
+    {% if product_descriptions %}
+    <h5>{{ product.product_name }} - Product Descriptions</h5><br/>
+    {% endif %}
+
+    {% for product in product_descriptions %}
+        <table class="table table-bordered producttable">
+                <tr>
+                    <td class="green">Brand</td>
+                    <td style="text-align:left;"><span class="">{{ product.brand }}</span></td>
+                </tr>
+                <tr>
+                    <td class="green">Model</td>
+                    <td style="text-align:left"><span class="">{{ product.model }}</span></td>
+                </tr>
+                <tr>
+                    <td class="green">Rating</td>
+                    <td style="text-align:left"><span class="">{{ product.rating }}</span></td>
+                </tr>
+                <tr>
+                    <td class="green">Type</td>
+                    <td style="text-align:left"><span class="">{{ product.type }}</span></td>
+                </tr>
+                <tr>
+                    <td class="green">Size</td>
+                    <td style="text-align:left"><span class="">{{ product.size }}</span></td>
+                </tr>
+                <tr>
+                    <td class="green">Material</td>
+                    <td style="text-align:left"><span class="">{{ product.material }}</span></td>
+                </tr>
+                {{product.additional_info|linebreak_to_web_row}}
+        </table>
+    <br/>
+        {% endfor %}
+
+
+
+</div>
+
+{% endblock %}

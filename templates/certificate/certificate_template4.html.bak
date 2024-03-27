@@ -1,0 +1,386 @@
+{% load static %}
+{% load extra_filter %}
+<style type="text/css">
+
+    @font-face {
+        font-family: Segoe UI;
+        src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segeoui.ttf');
+    }
+    /* Italics */
+    @font-face {
+       font-family: 'Segoe UI Italic';
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segoeuii.ttf');
+    }
+    /* Bold */
+    @font-face {
+       font-family: Segoe UI Bold;
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/SEGOEUIB.TTF');
+       font-weight: bold;
+    }
+    /* Bold Italic*/
+    @font-face {
+       font-family: 'Segoe UI Bold Italic';
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segoeuiz.ttf');
+       font-weight: bold;
+    }
+    body {
+        font-family: Segoe UI;
+        }
+    h1 {
+        font-family: Segoe UI;
+        font-size: 20px;
+        font-weight: normal;
+    }
+    h2 {
+        font-family: 'Segoe UI Bold Italic';
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .italic {
+        font-family: 'Segoe UI Italic';
+        font-size: 12px;
+        line-height: 1.6;
+
+    }
+    .bold-italic {
+        font-family: 'Segoe UI Bold Italic';
+        font-size: 12px;
+    }
+    .larger {
+        font-size: 14px;
+    }
+    img {
+        vertical-align: top;
+    }
+
+    td {
+        word-break: break-all;
+    }
+    @page {
+        size: a4 portrait;
+        background-image: url('media/files/border.pdf');
+        background-opacity: 1;
+
+        @frame content_frame {
+            left: 80pt;
+            right:10pt;
+            height: 800pt;
+            top: 55pt;
+            width: 450pt;
+            /*-pdf-frame-border: 1;*/    /* for debugging the layout */
+        }
+            @frame footer_frame {
+            -pdf-frame-content: footer_content;
+            left: 80pt;
+            right:80pt;
+            top: 600pt;
+            height: 180pt;
+            /*-pdf-frame-border: 1;*/
+
+        }
+
+    }
+    @page second_template {
+        size: a4 portrait;
+        background-image: url('media/files/white.pdf');
+        @frame header_frame {
+            -pdf-frame-content: header;
+                right:10pt;
+                left: 80pt;
+                width: 460pt;
+                top: 20pt;
+                height: 280pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 80pt;
+            width: 460pt;
+            top: 230pt;
+            height: 500pt;
+        }
+
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content2;
+            left: 520pt; width: 512pt; top: 805pt; height: 18pt;
+        }
+
+    }
+
+    .inline-block {
+        display: inline-block;
+    }
+    .no-space-below
+    {
+        padding-bottom:0;
+        margin-bottom:0;
+    }
+    .right {
+        float: right;
+    }
+    .uptextsize {
+        font-size: 16px;
+    }
+    #banner {
+        text-align: center;
+    }
+    #upp {
+      width: 100%;
+      /*border: 1px solid black;*/
+      /*background:red;*/
+    }
+    .alignleft,
+    .alignright {
+      display: inline-block;
+      /*background: red;*/
+    }
+    .alignleft {
+      padding-left: 100px;
+    }
+    .alignright {
+      padding-right: 100px;
+    }
+    .aligncenter {
+        text-align:center;
+    }
+    .page-break{
+        page-break-after: always;
+    }
+    .offsetleft {
+        margin-left:-80pt;
+    }
+    .position {
+        margin-bottom: 0;
+        text-align: center;
+    }
+    table.tg td {
+        vertical-align: top;
+    }
+    .brand-spacing {
+      line-height:100%;
+    }
+    .image-container {
+        width: 500px;
+        height: 100px;
+        padding-top:-15px;
+
+    }
+    #tablelogo td {
+        text-align: center;
+        vertical-align: middle;
+    }
+    #tablelogo1 {
+        text-align: center;
+    }
+</style>
+<html>
+<head>
+</head>
+
+<body>
+    <div id="banner">
+        <div class="image-container">
+            <img src ="{% static 'images/IKRAM.png' %}" width="100" height="100" style="object-fit: contain;" />
+        </div>
+            <h1>PRODUCT CERTIFICATE OF CONFORMITY</h1>
+            <h2>Certificate Number : {{ obj.certificate_no }}</h2>
+    </div>
+
+    <p class="italic">Certificate Holder<br/>
+    <span class="bold-italic">{{ obj.certificate_holder.name }}<br/>
+        {{ obj.holder_address.address }}, {{ obj.holder_address.address2 }}, {{ obj.holder_address.address3 }}<br/>
+        {{ obj.holder_address.postcode }}, {{ obj.holder_address.city }}<br/>
+
+    </span></p>
+    <p class="italic">Product Name<br/>
+    <span class="bold-italic">{{ obj.product_name }}</span></p>
+
+    <p class="italic">Standard<br/>
+        <span class="bold-italic">{{ obj.product_standard }}</span></p>
+    <p class="italic">Product Description<br/>
+    <span class="bold-italic">{{ obj.product_description }}</span></p>
+    <p class="italic brand-spacing">Brands
+    {% for brand in obj.brands.all %}
+        {% if forloop.counter0|divisibleby:5 %}
+            <br/>
+            <img src="{{ brand.logo.url }}" width="80" height="40" style="max-width:80;object-fit: cover;" />&nbsp
+        {% else %}
+            <img src="{{ brand.logo.url }}" width="80" height="40" style="max-width:80;object-fit: cover;" />&nbsp
+        {% endif %}
+    {% endfor %}
+    </p>
+    <p class="italic">Manufacturer<br/>
+    <span class="bold-italic">{{ obj.manufacturer.name }}
+    <br/>
+        {{ obj.manufacturer_address.address }}, {{ obj.manufacturer_address.address2 }}, {{ obj.manufacturer_address.address3 }}<br/>
+         {{ obj.manufacturer_address.postcode }}, {{ obj.manufacturer_address.city }}<br/>
+
+    </span>
+    </p>
+    <br/>
+    <table width="100%">
+        <tr>
+            <td style="text-align:center;"><p class="italic">Date of Original Issue</td>
+            <td style="text-align:center;"><p class="italic">Date of Renewal</p></td>
+            <td style="text-align:center;"><p class="italic">Date of Amendment</p></td>
+            <td style="text-align:center;"><p class="italic">Expiry Date</p></td>
+        </tr>
+        <tr>
+            <td style="text-align:center;"><span class="bold-italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>
+            <td style="text-align:center;"><span class="bold-italic">{{ obj.date_renewal|date:'d.m.Y' }}</span></td>
+            <td style="text-align:center;"><span class="bold-italic">{{ obj.date_amendment|date:'d.m.Y' }}</span></td>
+            <td style="text-align:center;"><span class="bold-italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>
+        </tr>
+    </table>
+
+    <div id="footer_content">
+        <table id="upp">
+        <tr>
+            <td width="23%">
+        <!--div class="inline-block"-->
+            <img class="alignleft" src="{{ obj.qr_image.url }}" width="150" height="150"/>
+            </td>
+            <td width="5%"></td>
+             <td>
+                 <div class="aligncenter">
+                    <img src="{% static 'images/signature.png' %}" width="100%" height="150" />
+                    <p style="margin-bottom:5px;">
+                        <table id="tablelogo" style="background-color:#c3e5fa;" >
+                            <tr align="center" style="height:60px;width:100%;">
+                                <td width="32%" align="right"><img src ="{% static 'images/KMark.png' %}" width="50" height="55" style="object-fit: contain;" />&nbsp</td>
+                                <td align="left"><img src ="{% static 'images/iaf_acb013_temp4.png' %}" width="210" height="55" style="object-fit: contain;" /></td>
+                            </tr>
+                        </table>
+                    </p>
+                    <p align="center" style="line-height:1em;text-align:center;font-size:8px;margin:0;">
+                        This certificate remains the property of IKRAM QA SERVICES SDN. BHD. and shall be returned on request.<br/>
+                        IKRAM QA Services Sdn. Bhd. (199901004665)<br/>
+                        Address: Block 7, Unipark Suria, Jalan Ikram – Uniten, 43000 Kajang, Selangor Darul Ehsan, Malaysia.<br/>
+                        Tel: +603 8738 3212 Fax: +603 8736 7254 Email: ikramqa@ikram.com.my Website: www.ikramqa.com.my
+                    </p>
+                 </div>
+             </td>
+        </tr>
+        </table>
+    </div>
+    <!-- switch page templates -->
+
+    <pdf:nexttemplate name="second_template"/>
+    <!--<pdf:nextpage/>-->
+    <div id="header">
+        <table class="banner">
+            <tr>
+                <td style="width:12%;text-align:left;">
+                    <div class="inline-block">
+                        <img src ="{% static '/images/IKRAM.png' %}" width="70" height="70"/>
+                    </div>
+                </td>
+                <td style="width:12%;text-align:left;vertical-align: bottom;">
+                    <div class="inline-block">
+                        <img src ="{% static 'images/KMark.png' %}" width="68" height="72" />
+                    </div>
+                </td>
+                <td style="width:30%;text-align:center;vertical-align: middle;">
+                    <div class="inline-block">
+                        <img src ="{% static '/images/iaf_acb013_temp4.png' %}" width="220" height="70"/>
+                    </div>
+                </td>
+                <td style="width:5%;">
+                </td>
+                <td style="text-align:left;line-height:1em;">
+                    <div class="inline-block">
+                        IKRAM QA Services Sdn. Bhd. (199901004665)<br/>
+                        Address: Block 7, Unipark Suria, Jalan Ikram–Uniten,<br/>
+                        43000 Kajang, Selangor Darul Ehsan, Malaysia.<br/>
+                        Tel: +603 8738 3212 Fax: +603 8736 7254<br/>
+                        Email: ikramqa@ikram.com.my <br/>
+                        Website: www.ikramqa.com.my
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <h1 class="position">ANNEX</h1>
+        <div>
+            <table style="display:inline;">
+                <tr>
+                    <td style="text-align:left;width:20%">
+                        <img class="alignleft" src="{{ obj.qr_image.url }}" width="80" height="80"/>
+                    </td>
+                    <td style="width:80%">
+                        <div style="padding-right:90pt;text-align: center;">
+                            <h3>Certificate Number : {{ obj.certificate_no }}</h3>
+                            <h3>Certificate Holder : {{ obj.certificate_holder.name }}</h3>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        <table>
+            <tr>
+                <td style="text-align:center;"><p class="italic">Date of Orignal Issue</td>
+                <td style="text-align:center;"><p class="italic">Date of Renewal</p></td>
+                <td style="text-align:center;"><p class="italic">Date of Amendment</p></td>
+                <td style="text-align:center;"><p class="italic">Expiry Date</p></td>
+            </tr>
+            <tr>
+                <td style="text-align:center;"><span class="italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>
+                <td style="text-align:center;"><span class="italic">{{ obj.date_renewal|date:'d.m.Y' }}</span></td>
+                <td style="text-align:center;"><span class="italic">{{ obj.date_amendment|date:'d.m.Y' }}</span></td>
+                <td style="text-align:center;"><span class="italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>
+            </tr>
+        </table>
+    </div>
+    {% if products %}
+    <pdf:nextpage/>
+           <div class="uptextsize">
+            <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">
+        {% for product in products %}
+<!--                {% if forloop.counter0|in_list %}-->
+<!--                </table>-->
+<!--                <pdf:nextpage />-->
+<!--                <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">-->
+<!--                {% endif %}-->
+                <tr>
+
+                </tr>
+                <!--tr>
+                    <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Brand</b></td><td style="width:2%">:</td><td style="text-align:left;"><span class="">{{ product.brand }}</span></td>
+                </tr-->
+                <tr>
+                    <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Model</b></td><td style="width:2%">:</td><td style="text-align:left"><span class="">{{ product.model }}</span></td>
+                </tr>
+                <tr>
+                    <td><b>Rating</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.rating }}</span></td>
+                </tr>
+                <tr>
+                    <td><b>Type</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.type }}</span></td>
+                </tr>
+                <tr>
+                    <td><b>Size</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.size }}</span></td>
+                </tr>
+                <tr>
+                    <td><b>Material</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.material }}</span></td>
+                </tr>
+                {{product.additional_info|linebreak_to_row}}
+
+        {% endfor %}
+
+         </table>
+    </div>
+    <div id="footer_content2">page <pdf:pagenumber />
+        of <pdf:pagecount />
+    </div>
+    {% endif %}
+    <pdf:nextpage/>
+    <br/>
+    <br/>
+    <span style="line-height: 1em;">
+        {{ obj.information|safe }}
+    </span>
+
+    <div id="footer_content2">page <pdf:pagenumber />
+        of <pdf:pagecount />
+    </div>
+
+</body>
+</html>
