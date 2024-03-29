@@ -7,7 +7,7 @@ from decouple import config
 
 def main():
     """Run administrative tasks."""
-    dev_mode = config('DEV_MODE', default=False, cast=bool)
+    dev_mode = os.getenv('DEV_MODE')
     if dev_mode:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ikramqa.settings')
     else:

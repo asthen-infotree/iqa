@@ -24,7 +24,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-DEV_MODE = config('DEV_MODE', default=True, cast=bool)
+DEV_MODE = os.getenv('DEV_MODE')
 
 ALLOWED_HOSTS = ['*']
 
@@ -122,10 +122,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': config('DBNAME'),
-            'USER': config('DBUSER'),
-            'PASSWORD': config('DBPASS'),
-            'HOST': config('DBHOST'),
+            'NAME': os.getenv('DBNAME'),
+            'USER': os.getenv('DBUSER'),
+            'PASSWORD': os.getenv('DBPASS'),
+            'HOST': os.getenv('DBHOST'),
             'PORT': '5432',
         }
     }
