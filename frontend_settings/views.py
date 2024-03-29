@@ -1,6 +1,6 @@
 from datatableview import Datatable, columns
 from django.contrib import messages
-from django.contrib.sites.models import Site
+# from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
