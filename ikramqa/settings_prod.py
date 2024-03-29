@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'dal',
     'dal_select2',
     'certificate',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
