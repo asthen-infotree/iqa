@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 DEV_MODE = os.getenv('DEV_MODE')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['ikramqa.azurewebsites.net']
 
 SITE_ID=1
 # Application definition
