@@ -7,11 +7,7 @@ from decouple import config
 
 def main():
     """Run administrative tasks."""
-    dev_mode = os.getenv('DEV_MODE')
-    if dev_mode:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ikramqa.settings')
-    else:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ikramqa.settings_prod')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ikramqa.settings_prod')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
