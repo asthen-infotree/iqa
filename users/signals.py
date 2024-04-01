@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 @receiver(post_save, sender=CustomUser)
 def user_created(sender, instance, created, **kwargs):
     group = Group.objects.get(name="User Group")
-    if created:
+    if created and not instance.is_superuser:
         instance.groups.add(group)
         instance.is_staff = True
         instance.save()
