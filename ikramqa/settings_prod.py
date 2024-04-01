@@ -20,22 +20,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = config('SECRETKEY')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 DEV_MODE = os.getenv('DEV_MODE')
 
-ALLOWED_HOSTS = ['ikramqa.azurewebsites.net']
-
-SITE_ID=1
-# Application definition
+ALLOWED_HOSTS = ['ikramqa.azurewebsites.net', '127.0.0.1']
 
 INSTALLED_APPS = [
     'dal',
     'dal_select2',
     'certificate',
-    # 'django.contrib.sites',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,6 +54,9 @@ INSTALLED_APPS = [
     'datatableview',
     'corsheaders',
 ]
+
+SITE_ID=1
+# Application definition
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
@@ -121,6 +122,13 @@ DATABASES = {
             'PORT': '5432',
         }
     }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'db.sqlite3',
+#     }
+# }
 
 AUTH_USER_MODEL = 'users.CustomUser'
 # Password validation
