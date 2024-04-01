@@ -30,10 +30,10 @@ DEV_MODE = os.getenv('DEV_MODE')
 ALLOWED_HOSTS = ['ikramqa.azurewebsites.net', '127.0.0.1']
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'dal',
     'dal_select2',
     'certificate',
-    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
