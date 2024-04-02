@@ -1,0 +1,51 @@
+[
+{
+  "model": "frontend_settings.banner",
+  "pk": 1,
+  "fields": {
+    "banner": "banners/banner1.jpg"
+  }
+},
+{
+  "model": "frontend_settings.banner",
+  "pk": 2,
+  "fields": {
+    "banner": "banners/banner2.jpg"
+  }
+},
+{
+  "model": "frontend_settings.banner",
+  "pk": 3,
+  "fields": {
+    "banner": "banners/banner3.jpg"
+  }
+},
+{
+  "model": "frontend_settings.banner",
+  "pk": 4,
+  "fields": {
+    "banner": "banners/banner4.jpg"
+  }
+},
+{
+  "model": "frontend_settings.banner",
+  "pk": 5,
+  "fields": {
+    "banner": "banners/banner5.jpg"
+  }
+},
+{
+  "model": "frontend_settings.banner",
+  "pk": 6,
+  "fields": {
+    "banner": "banners/Screenshot_20221103_042310.png"
+  }
+},
+{
+  "model": "frontend_settings.banner",
+  "pk": 10,
+  "fields": {
+    "banner": "banners/autoboxweb.png"
+  }
+}
+]
