@@ -366,7 +366,9 @@
                 <tr>
                     <td><b>Material</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.material }}</span></td>
                 </tr>
+                {% if product.additional_info %}
                 {{product.additional_info|linebreak_to_row}}
+                {% endif %}
 
         {% endfor %}
 

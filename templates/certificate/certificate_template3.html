@@ -353,7 +353,9 @@
                 <tr>
                     <td style="max-width:30%;width:30%;display:inline-block;word-break:break-all;"><b>Producer's Code</b></td><td style="width:2%">:</td><td style="text-align:left;"><span class="">{{ product.rmc_producer_code }}</span></td>
                 </tr>
+                {% if product.additional_info %}
                 {{ product.additional_info|linebreak_to_row }}
+                {% endif %}
 
         {% endfor %}
 
