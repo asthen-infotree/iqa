@@ -69,10 +69,16 @@ class ClientAddress(models.Model):
     #     return self.client.name + ', ' + self.address + ', ' + self.address2 + ', ' + self.address3 + ', ' + str(self.postcode) + ', ' + str(self.city)
 
     def __str__(self):
-        return format_html(
-             "{} <br/> {} <br/> {} <br/> {} <br/> {} <br/> {} <br/> {} <br/>", self.client.name, self.address, self.address2,
-            self.address3, self.city, self.postcode, self.state
-        )
+        full_address=[self.client.name, self.address, self.address2, self.address3, self.city, self.postcode, self.state]
+        new_full_address=''
+        for field in full_address:
+            if field is not None and field != "":
+                new_full_address+=str(field)+"<br/>"
+        return format_html(new_full_address)
+        # return format_html(
+        #      "{} <br/> {} <br/> {} <br/> {} <br/> {} <br/> {} <br/> {} <br/>", self.client.name, self.address, self.address2,
+        #     self.address3, self.city, self.postcode, self.state
+        # )
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=255)
@@ -98,10 +104,17 @@ class ManufacturerAddress(models.Model):
         verbose_name_plural = "Manufacturer Addresses"
 
     def __str__(self):
-        return format_html(
-            "{} <br/> {} <br/> {} <br/> {} <br/> {} <br/> {} <br/> {} <br/>", self.manufacturer.name, self.address, self.address2,
-            self.address3, self.city, self.postcode, self.state
-        )
+        full_address = [self.manufacturer.name, self.address, self.address2, self.address3, self.city, self.postcode,
+                        self.state]
+        new_full_address = ''
+        for field in full_address:
+            if field is not None and field != "":
+                new_full_address += str(field) + "<br/>"
+        return format_html(new_full_address)
+        # return format_html(
+        #     "{} <br/> {} <br/> {} <br/> {} <br/> {} <br/> {} <br/> {} <br/>", self.manufacturer.name, self.address, self.address2,
+        #     self.address3, self.city, self.postcode, self.state
+        # )
 
 
 class Licensee(models.Model):

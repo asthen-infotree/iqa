@@ -184,7 +184,7 @@ class CertAdmin(SummernoteModelAdmin):
 
 admin.site.register(Certificate, CertAdmin)
 admin.site.register(Standards)
-admin.site.register(Product)
+# admin.site.register(Product)
 
 
 class ProductDesInline(admin.StackedInline):
