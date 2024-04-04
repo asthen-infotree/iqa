@@ -212,3 +212,4 @@ class BrandSiteAdmin(admin.ModelAdmin):
 
 admin.site.register(Brand, BrandSiteAdmin)
 admin.site.register(MigrationRecorder.Migration)
+
