@@ -73,8 +73,8 @@
             -pdf-frame-content: footer_content;
             left: 80pt;
             right:80pt;
-            top: 600pt;
-            height: 180pt;
+            top: 580pt;
+            height: 200pt;
             /*-pdf-frame-border: 1;*/
 
         }
@@ -186,15 +186,17 @@
 
     <p class="italic">Certificate Holder<br/>
     <span class="bold-italic">{{ obj.certificate_holder.name }}<br/>
-        {{ obj.holder_address.address }}, {{ obj.holder_address.address2 }}, {{ obj.holder_address.address3 }}<br/>
-        {{ obj.holder_address.postcode }}, {{ obj.holder_address.city }}<br/>
+        {{ obj.holder_address.address }} {{ obj.holder_address.address2 }} {{ obj.holder_address.address3 }}<br/>
+        {{ obj.holder_address.postcode }}, {{ obj.holder_address.city }}, {{ obj.holder_address.state}}, {{ obj.holder_address.country}}<br/>
+
     </span></p>
 
     <p class="italic">Producer<br/>
     <span class="bold-italic">{{ obj.manufacturer.name }}
     <br/>
-        {{ obj.manufacturer_address.address }}, {{ obj.manufacturer_address.address2 }}, {{ obj.manufacturer_address.address3 }}<br/>
-         {{ obj.manufacturer_address.postcode }}, {{ obj.manufacturer_address.city }}<br/>
+        {{ obj.manufacturer_address.address }} {{ obj.manufacturer_address.address2 }} {{ obj.manufacturer_address.address3 }}<br/>
+         {{ obj.manufacturer_address.postcode }}, {{ obj.manufacturer_address.city }}, {{obj.manufacturer_address.state}}, {{ obj.manufacturer_address.country }}<br/>
+
     </span>
     </p>
 
@@ -259,7 +261,11 @@
         <div class="inline-block">
             <img src="static/images/signature.png" width="700" height="300"/>
         </div-->
-
+		<br/>
+        <br/>
+        <div align="center" style="text-align: center;width:200px;">page <pdf:pagenumber />
+            of <pdf:pagecount />
+            </div>
     </div>
 
 
@@ -302,7 +308,7 @@
         </tr>
         </table>
         <br/>
-        <h1 class="position">ANNEX</h1>
+        <h1 class="position" style="font-size:24px;">ANNEX</h1>
         <div>
             <table style="display:inline;">
                 <tr>
@@ -311,8 +317,8 @@
                     </td>
                     <td style="width:80%">
                         <div style="padding-right:90pt;text-align: center;">
-                            <h3>Certificate Number : {{ obj.certificate_no }}</h3>
-                            <h3>Certificate Holder : {{ obj.certificate_holder.name }}</h3>
+                            <h3 style="font-size:14px">Certificate Number : {{ obj.certificate_no }}</h3>
+                            <h3 style="font-size:14px">Certificate Holder : {{ obj.certificate_holder.name }}</h3>
                         </div>
                     </td>
                 </tr>
@@ -336,7 +342,7 @@
     </div>
     <pdf:nextpage/>
            <div class="uptextsize">
-            <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">
+            <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 14px;width:100%;">
         {% for product in products %}
 <!--                {% if forloop.counter0|in_list %}-->
 <!--                </table>-->

@@ -120,7 +120,7 @@ def render_pdf_view(request,cert_id):
     # create a pdf
     pisaFileObject.getNamedFile = lambda self: self.uri
     pisa_status = pisa.CreatePDF(
-        html, dest=response, link_callback=link_callback)
+        html, dest=response, link_callback=link_callback,encoding='utf-8')
     # if error then show some funny view
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
