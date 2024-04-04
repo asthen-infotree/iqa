@@ -7,6 +7,7 @@ from decouple import config
 
 def main():
     """Run administrative tasks."""
+    print('1')
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ikramqa.settings_prod')
     try:
         from django.core.management import execute_from_command_line
