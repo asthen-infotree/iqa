@@ -93,12 +93,12 @@ class Manufacturer(models.Model):
 class ManufacturerAddress(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     address = models.TextField(max_length=255)
-    address2 = models.CharField(max_length=255, blank=True)
-    address3 = models.CharField(max_length=255, blank=True)
+    address2 = models.TextField(max_length=255, blank=True)
+    address3 = models.TextField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True, null=True)
     postcode = models.IntegerField()
-    # country = models.CharField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Manufacturer Addresses"
