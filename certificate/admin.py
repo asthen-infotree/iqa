@@ -13,6 +13,9 @@ from django_summernote.admin import SummernoteModelAdmin
 from certificate.models import Certificate, Standards, Brand, ProductDescription, Product
 from ikramqa import settings
 from certificate.views import makeWatermark, render_pdf_view
+from django.db.migrations.recorder import MigrationRecorder
+from django.contrib import admin
+
 
 
 # Register your models here.
@@ -208,3 +211,4 @@ class BrandSiteAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Brand, BrandSiteAdmin)
+admin.site.register(MigrationRecorder.Migration)
