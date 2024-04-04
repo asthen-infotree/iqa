@@ -21,7 +21,7 @@ def linebreak_to_row(value):
 
     for x, y in dictionary.items():
         msg += format_html(
-            '<tr><td><b>{}</b></td><td>:</td><td style="text-align:left"><span class="">{}</span></td></tr>', x, y)
+            '<tr><td><b>{}</b></td><td>:</td><td style="text-align:left"><span class="">{}</span></td></tr>', mark_safe(x), mark_safe(y))
     return mark_safe(msg)
 
 
@@ -29,7 +29,7 @@ def linebreak_to_row(value):
 def linebreak_to_row_template3(value):
     msg = ''
     items = linebreaksbr(value)
-    dictionary = dict(subString.split(":") for subString in items.split("<br>"))
+    dictionary = dict(subString.split(":",1) for subString in items.split("<br>"))
 
     for x, y in dictionary.items():
         msg += format_html(
@@ -41,7 +41,7 @@ def linebreak_to_row_template3(value):
 def linebreak_to_web_row(value):
     msg = ''
     items = linebreaksbr(value)
-    dictionary = dict(subString.split(":") for subString in items.split("<br>"))
+    dictionary = dict(subString.split(":",1) for subString in items.split("<br>"))
 
     for x, y in dictionary.items():
         msg += format_html(

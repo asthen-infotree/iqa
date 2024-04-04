@@ -100,6 +100,7 @@ def render_pdf_view(request,cert_id):
     # context = extract_request_variables(request)
 
     context = {'obj': obj, 'products': products, 'producer_code':producer_code}
+    print('rating',products[1].rating)
     response = HttpResponse(content_type="application/pdf")
     # response["Content-Disposition"] = 'attachment; filename="report.pdf"'
     response["Content-Disposition"] = 'inline; filename="%s.pdf"' % obj.certificate_no
@@ -120,7 +121,7 @@ def render_pdf_view(request,cert_id):
     # create a pdf
     pisaFileObject.getNamedFile = lambda self: self.uri
     pisa_status = pisa.CreatePDF(
-        html, dest=response, link_callback=link_callback)
+        html, dest=response, link_callback=link_callback,encoding='utf-8')
     # if error then show some funny view
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
