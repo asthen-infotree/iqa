@@ -54,9 +54,9 @@ admin.site.register(Client)
 
 admin.site.register(ClientAddress)
 admin.site.register(Manufacturer)
-# admin.site.register(ManufacturerAddress)
+admin.site.register(ManufacturerAddress)
 admin.site.register(CustomUser, AccountAdmin)
 
-@admin.register(ManufacturerAddress)
-class PersonAdmin(admin.ModelAdmin):
-    list_display = ("manufacturer", "address", "address2", 'address3', 'postcode', 'city')
+# @admin.register(ManufacturerAddress)
+# class PersonAdmin(admin.ModelAdmin):
+#     list_display = ("manufacturer", "address", "address2", 'address3', 'postcode', 'city')

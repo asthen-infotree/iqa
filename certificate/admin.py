@@ -178,13 +178,13 @@ class CertAdmin(SummernoteModelAdmin):
             filebuffer = InMemoryUploadedFile(
                 buffer, None, file_name, 'image/png', None, None)
             obj.qr_image.save(file_name, filebuffer, save=False)
-        print('ch',obj.template)
+        # print('ch',obj.template)
         super().save_model(request, obj, form, change)
 
 
 admin.site.register(Certificate, CertAdmin)
 admin.site.register(Standards)
-admin.site.register(Product)
+# admin.site.register(Product)
 
 
 class ProductDesInline(admin.StackedInline):
