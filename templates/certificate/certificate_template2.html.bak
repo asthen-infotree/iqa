@@ -4,23 +4,23 @@
 
     @font-face {
         font-family: Segoe UI;
-        src: url('https://ikramtest.blob.core.windows.net/static/cert/font/segeoui.ttf');
+        src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segeoui.ttf');
     }
     /* Italics */
     @font-face {
        font-family: 'Segoe UI Italic';
-       src: url('https://ikramtest.blob.core.windows.net/static/cert/font/segoeuii.ttf');
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segoeuii.ttf');
     }
     /* Bold */
     @font-face {
        font-family: Segoe UI Bold;
-       src: url('https://ikramtest.blob.core.windows.net/static/cert/font/SEGOEUIB.TTF');
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/SEGOEUIB.TTF');
        font-weight: bold;
     }
     /* Bold Italic*/
     @font-face {
        font-family: 'Segoe UI Bold Italic';
-       src: url('https://ikramtest.blob.core.windows.net/static/cert/font/segoeuiz.ttf');
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segoeuiz.ttf');
        font-weight: bold;
     }
     body {
@@ -52,9 +52,7 @@
     img {
         vertical-align: top;
     }
-    table {
-        -pdf-keep-in-frame-mode: shrink;
-    }
+
     td {
         word-break: break-all;
     }
@@ -96,7 +94,7 @@
         @frame content_frame {          /* Content Frame */
             left: 80pt;
             width: 460pt;
-            top: 230pt;
+            top: 240pt;
             height: 500pt;
         }
 
@@ -188,7 +186,7 @@
 
     <p class="italic">Certificate Holder<br/>
     <span class="bold-italic">{{ obj.certificate_holder.name }}<br/>
-        {{ obj.holder_address.address }}, {{ obj.holder_address.address2 }}, {{ obj.holder_address.address3 }}<br/>
+        {{ obj.holder_address.address }} {{ obj.holder_address.address2 }} {{ obj.holder_address.address3 }}<br/>
         {{ obj.holder_address.postcode }}, {{ obj.holder_address.city }}<br/>
 
     </span></p>
@@ -212,7 +210,7 @@
     <p class="italic">Manufacturer<br/>
     <span class="bold-italic">{{ obj.manufacturer.name }}
     <br/>
-        {{ obj.manufacturer_address.address }}, {{ obj.manufacturer_address.address2 }}, {{ obj.manufacturer_address.address3 }}<br/>
+        {{ obj.manufacturer_address.address }} {{ obj.manufacturer_address.address2 }} {{ obj.manufacturer_address.address3 }}<br/>
          {{ obj.manufacturer_address.postcode }}, {{ obj.manufacturer_address.city }}<br/>
 
     </span>
@@ -220,7 +218,7 @@
     <br/>
     <table width="100%">
         <tr>
-            <td style="text-align:center;"><p class="italic">Date of Orignal Issue</td>
+            <td style="text-align:center;"><p class="italic">Date of Original Issue</td>
             <td style="text-align:center;"><p class="italic">Date of Renewal</p></td>
             <td style="text-align:center;"><p class="italic">Date of Amendment</p></td>
             <td style="text-align:center;"><p class="italic">Expiry Date</p></td>
@@ -313,7 +311,7 @@
         <br />
         <table>
             <tr>
-                <td style="text-align:center;"><p class="italic">Date of Orignal Issue</td>
+                <td style="text-align:center;"><p class="italic">Date of Original Issue</td>
                 <td style="text-align:center;"><p class="italic">Date of Renewal</p></td>
                 <td style="text-align:center;"><p class="italic">Date of Amendment</p></td>
                 <td style="text-align:center;"><p class="italic">Expiry Date</p></td>
@@ -331,14 +329,18 @@
            <div class="uptextsize">
             <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">
         {% for product in products %}
-                {% if forloop.counter0|in_list %}
-                </table>
-                <pdf:nextpage />
-                <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">
-                {% endif %}
+<!--                {% if forloop.counter0|in_list %}-->
+<!--                </table>-->
+<!--                <pdf:nextpage />-->
+<!--                <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">-->
+<!--                {% endif %}-->
+                {% if forloop.counter0 == 0 %}
+
+                {% else %}
                 <tr>
 
                 </tr>
+                {% endif %}
                 <!--tr>
                     <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Brand</b></td><td style="width:2%">:</td><td style="text-align:left;"><span class="">{{ product.brand }}</span></td>
                 </tr-->
@@ -368,8 +370,6 @@
     </div>
     {% endif %}
     <pdf:nextpage/>
-    <br/>
-    <br/>
     <span style="line-height: 1em;">
         {{ obj.information|safe }}
     </span>

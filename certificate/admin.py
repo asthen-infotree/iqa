@@ -61,10 +61,14 @@ class CertAdmin(SummernoteModelAdmin):
         return obj.date_original_issue.strftime('%d.%m.%Y')
 
     def date_renew(self, obj):
-        return obj.date_renewal.strftime('%d.%m.%Y')
+        if obj.date_renewal:
+            return obj.date_renewal.strftime('%d.%m.%Y')
+        return 'NIL'
 
     def expire_date(self, obj):
-        return obj.expiry_date.strftime('%d.%m.%Y')
+        if obj.expiry_date:
+            return obj.expiry_date.strftime('%d.%m.%Y')
+        return 'NIL'
 
     def generate_pdf_preview_html(self, obj):
         return format_html('<a class="button" target="_blank" rel="noopener noreferrer" href="/download/%s">Generate '

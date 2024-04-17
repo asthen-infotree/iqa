@@ -12,6 +12,7 @@ def linebreak_to_row(value):
     items = linebreaksbr(value)
     # print('items',items.split("<br>"))
     dictionary = dict(subString.split(":",1) for subString in items.split("<br>"))
+    # print('dict',dictionary)
     # for item in items.split("<br>"):
     #     print('item', type(item))
     #     print(dict(item[0],item[1]))
@@ -20,6 +21,7 @@ def linebreak_to_row(value):
     #            </tr>
 
     for x, y in dictionary.items():
+        print('xy', mark_safe(x),mark_safe(y))
         msg += format_html(
             '<tr><td><b>{}</b></td><td>:</td><td style="text-align:left"><span class="">{}</span></td></tr>', mark_safe(x), mark_safe(y))
     return mark_safe(msg)

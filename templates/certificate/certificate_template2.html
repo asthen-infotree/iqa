@@ -226,8 +226,8 @@
         <tr>
             <td style="text-align:center;"><span class="bold-italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>
             <td style="text-align:center;"><span class="bold-italic">{{ obj.date_renewal|date:'d.m.Y' }}</span></td>
-            <td style="text-align:center;"><span class="bold-italic">{{ obj.date_amendment|date:'d.m.Y' }}</span></td>
-            <td style="text-align:center;"><span class="bold-italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>
+            <td style="text-align:center;"><span class="bold-italic">{% if obj.date_amendment %}{{ obj.date_amendment|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
+            <td style="text-align:center;"><span class="bold-italic">{% if obj.expiry_date %}{{ obj.expiry_date|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
         </tr>
     </table>
 
@@ -325,8 +325,8 @@
             <tr>
                 <td style="text-align:center;"><span class="italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>
                 <td style="text-align:center;"><span class="italic">{{ obj.date_renewal|date:'d.m.Y' }}</span></td>
-                <td style="text-align:center;"><span class="italic">{{ obj.date_amendment|date:'d.m.Y' }}</span></td>
-                <td style="text-align:center;"><span class="italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>
+                <td style="text-align:center;"><span class="italic">{% if obj.date_amendment %}{{ obj.date_amendment|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
+                <td style="text-align:center;"><span class="italic">{% if obj.expiry_date %}{{ obj.expiry_date|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
             </tr>
         </table>
     </div>
