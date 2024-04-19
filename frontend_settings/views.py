@@ -115,6 +115,10 @@ from datatableview.views.legacy import LegacyDatatableView
 class product(DatatableView):
     model = Certificate
 
+    def get_queryset(self):
+        return Certificate.objects.filter(status='2')
+
+
     class datatable_class(Datatable):
         status = columns.TextColumn("Status", sources=None, processor="get_status_display")
         details = columns.TextColumn("Details", sources=None, processor="make_button")
@@ -130,6 +134,9 @@ class product(DatatableView):
                         'expiry_date',
                         'status',
                         'details']
+
+        def get_initial_queryset(self):
+            return Certificate.objects.filter(status="2")
 
         def get_status_display(self, instance, **kwargs):
             return instance.get_status_display()
