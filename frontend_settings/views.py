@@ -131,6 +131,10 @@ class product(DatatableView):
                         'status',
                         'details']
 
+        def get_initial_queryset(self):
+            return Certificate.objects.filter(status="2")
+
+
         def get_status_display(self, instance, **kwargs):
             return instance.get_status_display()
 
