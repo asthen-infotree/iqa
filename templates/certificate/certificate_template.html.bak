@@ -4,23 +4,23 @@
 
     @font-face {
         font-family: Segoe UI;
-        src: url('https://ikramtest.blob.core.windows.net/static/cert/font/segeoui.ttf');
+        src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segeoui.ttf');
     }
     /* Italics */
     @font-face {
        font-family: 'Segoe UI Italic';
-       src: url('https://ikramtest.blob.core.windows.net/static/cert/font/segoeuii.ttf');
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segoeuii.ttf');
     }
     /* Bold */
     @font-face {
        font-family: Segoe UI Bold;
-       src: url('https://ikramtest.blob.core.windows.net/static/cert/font/SEGOEUIB.TTF');
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/SEGOEUIB.TTF');
        font-weight: bold;
     }
     /* Bold Italic*/
     @font-face {
        font-family: 'Segoe UI Bold Italic';
-       src: url('https://ikramtest.blob.core.windows.net/static/cert/font/segoeuiz.ttf');
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segoeuiz.ttf');
        font-weight: bold;
     }
     body {
@@ -73,8 +73,8 @@
             -pdf-frame-content: footer_content;
             left: 80pt;
             right:80pt;
-            top: 600pt;
-            height: 180pt;
+            top: 580pt;
+            height: 200pt;
             /*-pdf-frame-border: 1;*/
 
         }
@@ -94,7 +94,7 @@
         @frame content_frame {          /* Content Frame */
             left: 80pt;
             width: 460pt;
-            top: 230pt;
+            top: 240pt;
             height: 500pt;
         }
 
@@ -148,6 +148,7 @@
         margin-left:-80pt;
     }
     .position {
+        margin-top: 0;
         margin-bottom: 0;
         text-align: center;
     }
@@ -186,8 +187,8 @@
 
     <p class="italic">Certificate Holder<br/>
     <span class="bold-italic">{{ obj.certificate_holder.name }}<br/>
-        {{ obj.holder_address.address }}, {{ obj.holder_address.address2 }}, {{ obj.holder_address.address3 }}<br/>
-        {{ obj.holder_address.postcode }}, {{ obj.holder_address.city }}<br/>
+        {{ obj.holder_address.address }} {{ obj.holder_address.address2 }} {{ obj.holder_address.address3 }}<br/>
+        {{ obj.holder_address.postcode }}, {{ obj.holder_address.city }}, {{ obj.holder_address.state}}, {{ obj.holder_address.country}}<br/>
 
     </span></p>
     <p class="italic">Product Name<br/>
@@ -210,8 +211,8 @@
     <p class="italic">Manufacturer<br/>
     <span class="bold-italic">{{ obj.manufacturer.name }}
     <br/>
-        {{ obj.manufacturer_address.address }}, {{ obj.manufacturer_address.address2 }}, {{ obj.manufacturer_address.address3 }}<br/>
-         {{ obj.manufacturer_address.postcode }}, {{ obj.manufacturer_address.city }}<br/>
+        {{ obj.manufacturer_address.address }} {{ obj.manufacturer_address.address2 }} {{ obj.manufacturer_address.address3 }}<br/>
+         {{ obj.manufacturer_address.postcode }}, {{ obj.manufacturer_address.city }}, {{obj.manufacturer_address.state}}, {{ obj.manufacturer_address.country }}<br/>
 
     </span>
     </p>
@@ -225,8 +226,8 @@
         </tr>
         <tr>
             <td style="text-align:center;"><span class="bold-italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>
-            <td style="text-align:center;"><span class="bold-italic">{{ obj.date_renewal|date:'d.m.Y' }}</span></td>
-            <td style="text-align:center;"><span class="bold-italic">{{ obj.date_amendment|date:'d.m.Y' }}</span></td>
+            <td style="text-align:center;"><span class="bold-italic">{% if obj.date_renewal %}{{ obj.date_renewal|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
+            <td style="text-align:center;"><span class="bold-italic">{% if obj.date_amendment %}{{ obj.date_amendment|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
             <td style="text-align:center;"><span class="bold-italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>
         </tr>
     </table>
@@ -260,6 +261,12 @@
              </td>
         </tr>
         </table>
+        <br/>
+        <br/>
+        <div align="center" style="text-align: center;width:200px;">page <pdf:pagenumber />
+            of <pdf:pagecount />
+            </div>
+
     </div>
     <!-- switch page templates -->
 
@@ -299,7 +306,7 @@
         </tr>
         </table>
         <br/>
-        <h1 class="position">ANNEX</h1>
+        <h1 class="position" style="font-size:24px;">ANNEX</h1>
         <div>
             <table style="display:inline;">
                 <tr>
@@ -308,8 +315,8 @@
                     </td>
                     <td style="width:80%">
                         <div style="padding-right:90pt;text-align: center;">
-                            <h3>Certificate Number : {{ obj.certificate_no }}</h3>
-                            <h3>Certificate Holder : {{ obj.certificate_holder.name }}</h3>
+                            <h3 style="font-size:14px">Certificate Number : {{ obj.certificate_no }}</h3>
+                            <h3 style="font-size:14px">Certificate Holder : {{ obj.certificate_holder.name }}</h3>
                         </div>
                     </td>
                 </tr>
@@ -318,37 +325,41 @@
         <br />
         <table>
             <tr>
-                <td style="text-align:center;"><p class="italic">Date of Orignal Issue</td>
+                <td style="text-align:center;"><p class="italic">Date of Original Issue</td>
                 <td style="text-align:center;"><p class="italic">Date of Renewal</p></td>
                 <td style="text-align:center;"><p class="italic">Date of Amendment</p></td>
                 <td style="text-align:center;"><p class="italic">Expiry Date</p></td>
             </tr>
             <tr>
                 <td style="text-align:center;"><span class="italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>
-                <td style="text-align:center;"><span class="italic">{{ obj.date_renewal|date:'d.m.Y' }}</span></td>
-                <td style="text-align:center;"><span class="italic">{{ obj.date_amendment|date:'d.m.Y' }}</span></td>
-                <td style="text-align:center;"><span class="italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>
+				<td style="text-align:center;"><span class="bold-italic">{% if obj.date_renewal %}{{ obj.date_renewal|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
+            	<td style="text-align:center;"><span class="bold-italic">{% if obj.date_amendment %}{{ obj.date_amendment|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
+                <td style="text-align:center;"><span class="italic">{% if obj.expiry_date %}{{ obj.expiry_date|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
             </tr>
         </table>
     </div>
     {% if products %}
     <pdf:nextpage/>
            <div class="uptextsize">
-            <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">
+            <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 14px;width:100%;">
         {% for product in products %}
 <!--                {% if forloop.counter0|in_list %}-->
 <!--                </table>-->
 <!--                <pdf:nextpage />-->
 <!--                <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">-->
 <!--                {% endif %}-->
+                {% if forloop.counter0 == 0 %}
+
+                {% else %}
                 <tr>
 
                 </tr>
+                {% endif %}
                 <!--tr>
                     <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Brand</b></td><td style="width:2%">:</td><td style="text-align:left;"><span class="">{{ product.brand }}</span></td>
                 </tr-->
                 <tr>
-                    <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Model</b></td><td style="width:2%">:</td><td style="text-align:left"><span class="">{{ product.model }}</span></td>
+                    <td style="max-width:23%;width:23%;display:inline-block;word-break:break-all;"><b>Model</b></td><td style="width:2%">:</td><td style="text-align:left"><span class="">{{ product.model }}</span></td>
                 </tr>
                 <tr>
                     <td><b>Rating</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.rating }}</span></td>
@@ -373,8 +384,7 @@
     </div>
     {% endif %}
     <pdf:nextpage/>
-    <br/>
-    <br/>
+
     <span style="line-height: 1em;">
         {{ obj.information|safe }}
     </span>

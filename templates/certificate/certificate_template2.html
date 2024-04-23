@@ -148,6 +148,7 @@
         margin-left:-80pt;
     }
     .position {
+        margin-top: 0;
         margin-bottom: 0;
         text-align: center;
     }
@@ -225,8 +226,8 @@
         </tr>
         <tr>
             <td style="text-align:center;"><span class="bold-italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>
-            <td style="text-align:center;"><span class="bold-italic">{{ obj.date_renewal|date:'d.m.Y' }}</span></td>
-            <td style="text-align:center;"><span class="bold-italic">{{ obj.date_amendment|date:'d.m.Y' }}</span></td>
+            <td style="text-align:center;"><span class="bold-italic">{% if obj.date_renewal %}{{ obj.date_renewal|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
+            <td style="text-align:center;"><span class="bold-italic">{% if obj.date_amendment %}{{ obj.date_amendment|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
             <td style="text-align:center;"><span class="bold-italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>
         </tr>
     </table>
@@ -324,8 +325,8 @@
             </tr>
             <tr>
                 <td style="text-align:center;"><span class="italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>
-                <td style="text-align:center;"><span class="italic">{{ obj.date_renewal|date:'d.m.Y' }}</span></td>
-                <td style="text-align:center;"><span class="italic">{{ obj.date_amendment|date:'d.m.Y' }}</span></td>
+				<td style="text-align:center;"><span class="bold-italic">{% if obj.date_renewal %}{{ obj.date_renewal|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
+            	<td style="text-align:center;"><span class="bold-italic">{% if obj.date_amendment %}{{ obj.date_amendment|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
                 <td style="text-align:center;"><span class="italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>
             </tr>
         </table>
@@ -351,7 +352,7 @@
                     <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Brand</b></td><td style="width:2%">:</td><td style="text-align:left;"><span class="">{{ product.brand }}</span></td>
                 </tr-->
                 <tr>
-                    <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Model</b></td><td style="width:2%">:</td><td style="text-align:left"><span class="">{{ product.model }}</span></td>
+                    <td style="max-width:23%;width:23%;display:inline-block;word-break:break-all;"><b>Model</b></td><td style="width:2%">:</td><td style="text-align:left"><span class="">{{ product.model }}</span></td>
                 </tr>
                 <tr>
                     <td><b>Rating</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.rating }}</span></td>

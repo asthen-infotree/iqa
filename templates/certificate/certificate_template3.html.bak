@@ -4,23 +4,23 @@
 
     @font-face {
         font-family: Segoe UI;
-        src: url('https://ikramtest.blob.core.windows.net/static/cert/font/segeoui.ttf');
+        src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segeoui.ttf');
     }
     /* Italics */
     @font-face {
        font-family: 'Segoe UI Italic';
-       src: url('https://ikramtest.blob.core.windows.net/static/cert/font/segoeuii.ttf');
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segoeuii.ttf');
     }
     /* Bold */
     @font-face {
        font-family: Segoe UI Bold;
-       src: url('https://ikramtest.blob.core.windows.net/static/cert/font/SEGOEUIB.TTF');
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/SEGOEUIB.TTF');
        font-weight: bold;
     }
     /* Bold Italic*/
     @font-face {
        font-family: 'Segoe UI Bold Italic';
-       src: url('https://ikramtest.blob.core.windows.net/static/cert/font/segoeuiz.ttf');
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segoeuiz.ttf');
        font-weight: bold;
     }
     body {
@@ -52,6 +52,7 @@
     img {
         vertical-align: top;
     }
+
     td {
         word-break: break-all;
     }
@@ -72,8 +73,8 @@
             -pdf-frame-content: footer_content;
             left: 80pt;
             right:80pt;
-            top: 600pt;
-            height: 180pt;
+            top: 580pt;
+            height: 200pt;
             /*-pdf-frame-border: 1;*/
 
         }
@@ -93,7 +94,7 @@
         @frame content_frame {          /* Content Frame */
             left: 80pt;
             width: 460pt;
-            top: 230pt;
+            top: 240pt;
             height: 500pt;
         }
 
@@ -179,21 +180,23 @@
         <div class="image-container">
             <img src ="{% static 'images/IKRAM.png' %}" width="100" height="100" style="object-fit: contain;" />
         </div>
-            <h1>PRODUCT CERTIFICATE OF CONFORMITY</h1>
+            <h1>CERTIFICATE OF CONFORMITY FOR READY-MIXED CONCRETE</h1>
             <h2>Certificate Number : {{ obj.certificate_no }}</h2>
     </div>
 
     <p class="italic">Certificate Holder<br/>
     <span class="bold-italic">{{ obj.certificate_holder.name }}<br/>
-        {{ obj.holder_address.address }}, {{ obj.holder_address.address2 }}, {{ obj.holder_address.address3 }}<br/>
-        {{ obj.holder_address.postcode }}, {{ obj.holder_address.city }}<br/>
+        {{ obj.holder_address.address }} {{ obj.holder_address.address2 }} {{ obj.holder_address.address3 }}<br/>
+        {{ obj.holder_address.postcode }}, {{ obj.holder_address.city }}, {{ obj.holder_address.state}}, {{ obj.holder_address.country}}<br/>
+
     </span></p>
 
     <p class="italic">Producer<br/>
     <span class="bold-italic">{{ obj.manufacturer.name }}
     <br/>
-        {{ obj.manufacturer_address.address }}, {{ obj.manufacturer_address.address2 }}, {{ obj.manufacturer_address.address3 }}<br/>
-         {{ obj.manufacturer_address.postcode }}, {{ obj.manufacturer_address.city }}<br/>
+        {{ obj.manufacturer_address.address }} {{ obj.manufacturer_address.address2 }} {{ obj.manufacturer_address.address3 }}<br/>
+         {{ obj.manufacturer_address.postcode }}, {{ obj.manufacturer_address.city }}, {{obj.manufacturer_address.state}}, {{ obj.manufacturer_address.country }}<br/>
+
     </span>
     </p>
 
@@ -210,7 +213,7 @@
     <br/>
     <table>
         <tr>
-            <td style="text-align:center;"><p class="italic">Date of Orignal Issue</td>
+            <td style="text-align:center;"><p class="italic">Date of Original Issue</td>
             <td style="text-align:center;"><p class="italic">Date of Renewal</p></td>
             <td style="text-align:center;"><p class="italic">Date of Amendment</p></td>
             <td style="text-align:center;"><p class="italic">Expiry Date</p></td>
@@ -237,8 +240,8 @@
                     <p style="margin-bottom:5px;">
                         <table id="tablelogo" style="background-color:#c3e5fa;" >
                             <tr style="height:60px;width:100%;">
-                                <td width="50%" align="right"><img src ="{% static '/images/RMC.png' %}" width="50" height="50" style="object-fit: contain;" />&nbsp</td>
-                                <td align="left"><img src ="{% static '/images/standards_acb013.png' %}" width="85" height="50" style="object-fit: contain" /></td>
+                                <td width="32%" align="right"><img src ="{% static '/images/RMC.png' %}" width="50" height="50" style="object-fit: contain;" />&nbsp</td>
+                                <td align="left"><img src ="{% static 'images/iaf_acb013_temp4.png' %}" width="210" height="55" style="object-fit: contain;" /></td>
                             </tr>
                         </table>
                     </p>
@@ -258,7 +261,11 @@
         <div class="inline-block">
             <img src="static/images/signature.png" width="700" height="300"/>
         </div-->
-
+		<br/>
+        <br/>
+        <div align="center" style="text-align: center;width:200px;">page <pdf:pagenumber />
+            of <pdf:pagecount />
+            </div>
     </div>
 
 
@@ -269,21 +276,23 @@
     <div id="header">
         <table class="banner">
         <tr>
-            <td style="width:17%;text-align:left;">
+            <td style="width:12%;text-align:left;">
             <div class="inline-block">
-            <img src ="{% static '/images/RMC.png' %}" width="80" height="80" />
+                <img src ="{% static '/images/IKRAM.png' %}" width="70" height="70"/>
             </div>
-        </td>
-        <td style="width:17%;text-align:left;">
-        <div class="inline-block">
-            <img src ="{% static '/images/IKRAM.png' %}" width="80" height="80"/>
-        </div>
-        </td>
-        <td style="width:21%;text-align:left;">
-        <div class="inline-block">
-            <img src ="{% static '/images/standards_acb013.png' %}" width="130" height="80"/>
-        </div>
-        </td>
+            </td>
+
+            <td style="width:12%;text-align:left;">
+            <div class="inline-block">
+            <img src ="{% static '/images/RMC.png' %}" width="68" height="68" />
+            </div>
+            </td>
+
+        <td style="width:30%;text-align:center;vertical-align: middle;">
+                    <div class="inline-block">
+                        <img src ="{% static '/images/iaf_acb013_temp4.png' %}" width="220" height="70"/>
+                    </div>
+                </td>
         <td style="width:5%;">
         </td>
         <td style="text-align:left;line-height:1em;">
@@ -299,7 +308,7 @@
         </tr>
         </table>
         <br/>
-        <h1 class="position">ANNEX</h1>
+        <h1 class="position" style="font-size:24px;">ANNEX</h1>
         <div>
             <table style="display:inline;">
                 <tr>
@@ -308,8 +317,8 @@
                     </td>
                     <td style="width:80%">
                         <div style="padding-right:90pt;text-align: center;">
-                            <h3>Certificate Number : {{ obj.certificate_no }}</h3>
-                            <h3>Certificate Holder : {{ obj.certificate_holder.name }}</h3>
+                            <h3 style="font-size:14px">Certificate Number : {{ obj.certificate_no }}</h3>
+                            <h3 style="font-size:14px">Certificate Holder : {{ obj.certificate_holder.name }}</h3>
                         </div>
                     </td>
                 </tr>
@@ -333,16 +342,20 @@
     </div>
     <pdf:nextpage/>
            <div class="uptextsize">
-            <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">
+            <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 14px;width:100%;">
         {% for product in products %}
 <!--                {% if forloop.counter0|in_list %}-->
 <!--                </table>-->
 <!--                <pdf:nextpage />-->
 <!--                <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">-->
 <!--                {% endif %}-->
+               {% if forloop.counter0 == 0 %}
+
+                {% else %}
                 <tr>
 
                 </tr>
+                {% endif %}
                 <tr>
                     <td style="max-width:30%;width:30%;display:inline-block;word-break:break-all;"><b>Producer's Code</b></td><td style="width:2%">:</td><td style="text-align:left;"><span class="">{{ product.rmc_producer_code }}</span></td>
                 </tr>
@@ -422,8 +435,7 @@
 <!--            </tr>-->
 <!--        </table>-->
 <!--    </div>-->
-    <br/>
-    <br/>
+
     <span style="line-height: 1em;">
         {{ obj.information|safe }}
     </span>
