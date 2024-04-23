@@ -51,7 +51,7 @@ class ProductInline(admin.StackedInline):
 class CertAdmin(SummernoteModelAdmin):
     summernote_fields = ('information',)
     # actions = [makeWatermark]
-    list_display = ('certificate_no', 'date_original', 'date_renew', 'expire_date',
+    list_display = ('certificate_no', 'date_original', 'date_renew', 'expiry_date',
                     'product_standard', 'status', 'generate_pdf_preview_html')
     exclude_fields = ['qr_image']
     view_on_site = False
@@ -65,9 +65,9 @@ class CertAdmin(SummernoteModelAdmin):
             return obj.date_renewal.strftime('%d.%m.%Y')
         return 'NIL'
 
-    def expire_date(self, obj):
-        if obj.expiry_date:
-            return obj.expiry_date.strftime('%d.%m.%Y')
+    def date_amend(self, obj):
+        if obj.date_amendment:
+            return obj.date_amendment.strftime('%d.%m.%Y')
         return 'NIL'
 
     def generate_pdf_preview_html(self, obj):
@@ -78,14 +78,14 @@ class CertAdmin(SummernoteModelAdmin):
     generate_pdf_preview_html.short_description = 'Actions'
     date_original.short_description = 'Original Issue Date'
     date_renew.short_description = 'Renewal Date'
-    expire_date.short_description = 'Expiry Date'
+    date_amend.short_description = 'Expiry Date'
     generate_pdf_preview_html.allow_tags = True
     date_original.admin_order_field = 'date_original_issue'
     date_renew.admin_order_field = 'date_renewal'
-    expire_date.admin_order_field = 'expiry_date'
+    date_amend.admin_order_field = 'date_amendment'
     date_original.allow_tags = True
     date_renew.allow_tags = True
-    expire_date.allow_tags = True
+    date_amend.allow_tags = True
 
     # def get_urls(self):
     #     urls = super().get_urls()
