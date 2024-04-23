@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 DEV_MODE = os.getenv('DEV_MODE')
 
 ALLOWED_HOSTS = ['ikramqa.azurewebsites.net', '127.0.0.1']
@@ -237,3 +237,4 @@ mimetypes.add_type("text/css", ".css", True)
 
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
+SOCIALACCOUNT_ADAPTER = 'users.adapter.MySocialAccount'
