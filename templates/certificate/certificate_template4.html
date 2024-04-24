@@ -332,8 +332,8 @@
             </tr>
             <tr>
                 <td style="text-align:center;"><span class="italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>
-				<td style="text-align:center;"><span class="bold-italic">{% if obj.date_renewal %}{{ obj.date_renewal|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
-            	<td style="text-align:center;"><span class="bold-italic">{% if obj.date_amendment %}{{ obj.date_amendment|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
+				<td style="text-align:center;"><span class="italic">{% if obj.date_renewal %}{{ obj.date_renewal|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
+            	<td style="text-align:center;"><span class="italic">{% if obj.date_amendment %}{{ obj.date_amendment|date:'d.m.Y' }}{% else %}NIL{% endif %}</span></td>
                 <td style="text-align:center;"><span class="italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>
             </tr>
         </table>
@@ -385,9 +385,9 @@
     {% endif %}
     <pdf:nextpage/>
 
-    <span style="line-height: 1em;">
+    <div style="line-height: 1;">
         {{ obj.information|safe }}
-    </span>
+    </div>
 
     <div id="footer_content2">page <pdf:pagenumber />
         of <pdf:pagecount />

@@ -100,7 +100,7 @@ def render_pdf_view(request,cert_id):
     # context = extract_request_variables(request)
 
     context = {'obj': obj, 'products': products, 'producer_code':producer_code}
-    print('rating',products[1].rating)
+    # print('rating',products[1].rating)
     response = HttpResponse(content_type="application/pdf")
     # response["Content-Disposition"] = 'attachment; filename="report.pdf"'
     response["Content-Disposition"] = 'inline; filename="%s.pdf"' % obj.certificate_no
