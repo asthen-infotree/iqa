@@ -54,7 +54,7 @@ class ClientAddress(models.Model):
     address3 = models.TextField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True,null=True)
-    postcode = models.IntegerField()
+    postcode = models.IntegerField(blank=True, null=True)
     country = models.CharField(max_length=255, blank=True,null=True)
     status = models.CharField(default='1', max_length=1, choices=STATUS_CHOICES)
 
@@ -97,7 +97,7 @@ class ManufacturerAddress(models.Model):
     address3 = models.TextField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True, null=True)
-    postcode = models.IntegerField()
+    postcode = models.IntegerField(blank=True, null=True)
     country = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
@@ -129,7 +129,7 @@ class LicenseeAddress(models.Model):
     address = models.CharField(max_length=255)
     address2 = models.CharField(max_length=255, null=True)
     address3 = models.CharField(max_length=255, null=True)
-    postcode = models.IntegerField()
+    postcode = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=255)
 
     def __str__(self):
