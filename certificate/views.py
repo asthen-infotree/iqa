@@ -87,7 +87,7 @@ def link_callback(uri, rel):
 def render_pdf_view(request,cert_id):
     obj=Certificate.objects.get(id=cert_id)
     producer_code =''
-    products = obj.product_set.all()
+    products = obj.product_set.all().order_by('id')
     if obj.template == '1':
         template_path = "certificate/certificate_template.html"
     elif obj.template == '2':

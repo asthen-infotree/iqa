@@ -42,6 +42,7 @@ class ProductInlineFormset(forms.models.BaseInlineFormSet):
 class ProductInline(admin.StackedInline):
     model = Product
     readonly_fields = ('id',)
+    ordering = ('id',)
     extra = 0
     show_change_link = True
     verbose_name = "Annex"
