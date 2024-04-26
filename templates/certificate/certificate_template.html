@@ -188,7 +188,19 @@
     <p class="italic">Certificate Holder<br/>
     <span class="bold-italic">{{ obj.certificate_holder.name }}<br/>
         {{ obj.holder_address.address }} {{ obj.holder_address.address2 }} {{ obj.holder_address.address3 }}<br/>
-        {{ obj.holder_address.postcode }}, {{ obj.holder_address.city }}, {{ obj.holder_address.state}}, {{ obj.holder_address.country}}<br/>
+        {% if obj.holder_address.postcode %}
+        {{ obj.holder_address.postcode }},
+        {% else %} 
+        {% endif %} 
+        {% if obj.holder_address.city %}
+        {{ obj.holder_address.city }}, 
+        {% else %} 
+        {% endif %} 
+        {% if obj.holder_address.city %}
+        {{ obj.holder_address.state }}, 
+        {% else %}
+        {% endif %} 
+        {{ obj.holder_address.country}}<br/>
 
     </span></p>
     <p class="italic">Product Name<br/>
@@ -305,6 +317,7 @@
             </td>
         </tr>
         </table>
+
         <br/>
         <h1 class="position" style="font-size:24px;">ANNEX</h1>
         <div>
