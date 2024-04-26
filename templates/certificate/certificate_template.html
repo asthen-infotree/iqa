@@ -224,6 +224,7 @@
     <span class="bold-italic">{{ obj.manufacturer.name }}
     <br/>
         {{ obj.manufacturer_address.address }} {{ obj.manufacturer_address.address2 }} {{ obj.manufacturer_address.address3 }}<br/>
+        {% if obj.manufacturer_address.postcode %}
         {{ obj.manufacturer_address.postcode }},
         {% else %}
         {% endif %}
