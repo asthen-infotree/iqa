@@ -36,14 +36,15 @@ def linebreak_to_row(value):
 @register.filter
 def linebreak_to_web_row(value):
     msg = ''
-    items = linebreaksbr(value)
-    dictionary = [subString.split(":",1) for subString in items.split("<br>")]
-
-    for item in dictionary:
-        if len(item) < 2:
-            item.insert("")
-        msg += format_html(
-            '<tr><td class="green">{}</td><td style="text-align:left">{}</td></tr>', mark_safe(item[0]), mark_safe(item[1]))
+    if value is not '':
+        items = linebreaksbr(value)
+        dictionary = [subString.split(":",1) for subString in items.split("<br>")]
+        print('dict',dictionary)
+        for item in dictionary:
+            if len(item) < 2:
+                item.insert("")
+            msg += format_html(
+                '<tr><td class="green">{}</td><td style="text-align:left">{}</td></tr>', mark_safe(item[0]), mark_safe(item[1]))
     return mark_safe(msg)
 
 
