@@ -190,7 +190,7 @@
     <span class="bold-italic">{{ obj.certificate_holder.name }}<br/>
         {{ obj.holder_address.address }} {{ obj.holder_address.address2 }} {{ obj.holder_address.address3 }}<br/>
         {% if obj.holder_address.postcode %}
-        {{ obj.holder_address.postcode }},
+        {{ obj.holder_address.postcode }}
         {% else %}
         {% endif %}
         {% if obj.holder_address.city %}
@@ -226,7 +226,7 @@
     <br/>
         {{ obj.manufacturer_address.address }} {{ obj.manufacturer_address.address2 }} {{ obj.manufacturer_address.address3 }}<br/>
         {% if obj.manufacturer_address.postcode %}
-        {{ obj.manufacturer_address.postcode }},
+        {{ obj.manufacturer_address.postcode }}
         {% else %}
         {% endif %}
         {% if obj.manufacturer_address.city %}
@@ -384,7 +384,7 @@
                     <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Brand</b></td><td style="width:2%">:</td><td style="text-align:left;"><span class="">{{ product.brand }}</span></td>
                 </tr-->
                 <tr>
-                    <td style="max-width:23%;width:23%;display:inline-block;word-break:break-all;"><b>Model</b></td><td style="width:2%">:</td><td style="text-align:left"><span class="">{{ product.model }}</span></td>
+                    <td style="max-width:25%;width:25%;display:inline-block;word-break:break-all;"><b>Model</b></td><td style="width:2%">:</td><td style="text-align:left"><span class="">{{ product.model }}</span></td>
                 </tr>
                 <tr>
                     <td><b>Rating</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.rating }}</span></td>
