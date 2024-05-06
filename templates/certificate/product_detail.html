@@ -30,8 +30,8 @@
         </tr>
         <tr>
             <td class="green">Address of Certificate Holder</td>
-            <td>{{ product.holder_address.address }}, {{ product.holder_address.address2 }}, {{ product.holder_address.address3 }},
-                {{ product.holder_address.postcode }}, {{ product.holder_address.city }}</td>
+            <td>{{ product.holder_address.address }} {{ product.holder_address.address2 }} {{ product.holder_address.address3 }}
+                {{ product.holder_address.postcode|default_if_none:""  }} {{ product.holder_address.city }}</td>
         </tr>
         <tr>
             <td class="green">Status of Certificate Holder</td>
@@ -63,8 +63,8 @@
         </tr>
         <tr>
             <td class="green">Address of Manufacturer</td>
-            <td>{{ product.manufacturer_address.address }}, {{ product.manufacturer_address.address2 }}, {{ product.manufacturer_address.address3 }},
-                {{ product.manufacturer_address.postcode }}, {{ product.manufacturer_address.city }}</td>
+            <td>{{ product.manufacturer_address.address }} {{ product.manufacturer_address.address2 }} {{ product.manufacturer_address.address3 }}
+                {{ product.manufacturer_address.postcode|default_if_none:""  }} {{ product.manufacturer_address.city }}</td>
         </tr>
     </table>
 

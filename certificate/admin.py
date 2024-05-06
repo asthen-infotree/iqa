@@ -49,6 +49,7 @@ class ProductInline(admin.StackedInline):
     formset = ProductInlineFormset
 
 class CertAdmin(SummernoteModelAdmin):
+    search_fields = ['certificate_no','certificate_holder__name']
     summernote_fields = ('information',)
     # actions = [makeWatermark]
     list_display = ('certificate_no', 'date_original', 'date_renew', 'expire_date',
