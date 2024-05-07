@@ -23,7 +23,7 @@ def linebreak_to_row(value):
             item.insert("")
 
         msg += format_html(
-            '<tr><td style="max-width:25%;width:25%;"><b>{}</b></td><td>:</td><td style="text-align:left"><span class="">{}</span></td></tr>',
+            '<tr><td><b>{}</b></td><td>:</td><td style="text-align:left"><span class="">{}</span></td></tr>',
             mark_safe(item[0]), mark_safe(item[1]))
     return mark_safe(msg)
 
