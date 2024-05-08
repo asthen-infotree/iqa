@@ -14,17 +14,19 @@ def linebreak_to_row(value):
     msg = ''
     items = linebreaksbr(value)
     # print('items',items.split("<br>"))
-    dictionary = [subString.split(":",1) for subString in items.split("<br>")]
-    for item in dictionary:
-        item_zero = html.unescape(item[0]).strip()
-        if len(item_zero) > 15 and not re.search('\s', item_zero):
-                item[0] = item_zero[0:14] + " " + item_zero[14:]
-        if len(item) < 2:
-            item.insert("")
+    if items != '':
+        dictionary = [subString.split(":",1) for subString in items.split("<br>")]
+        for item in dictionary:
+            print('I', item)
+            item_zero = html.unescape(item[0]).strip()
+            if len(item_zero) > 15 and not re.search('\s', item_zero):
+                    item[0] = item_zero[0:14] + " " + item_zero[14:]
+            if len(item) < 2 and item != '':
+                item.insert("")
 
-        msg += format_html(
-            '<tr><td><b>{}</b></td><td>:</td><td style="text-align:left"><span class="">{}</span></td></tr>',
-            mark_safe(item[0]), mark_safe(item[1]))
+            msg += format_html(
+                '<tr><td style=""><b><p style="line-height:1;">{}</p></b></td><td><p style="line-height:1;">:</p></td><td style="text-align:left"><p style="line-height:1;">{}</p></td></tr>',
+                mark_safe(item[0]), mark_safe(item[1]))
     return mark_safe(msg)
 
     # for x, y in dictionary.items():
