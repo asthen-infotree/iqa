@@ -152,8 +152,16 @@
         margin-bottom: 0;
         text-align: center;
     }
-    table.tg td {
+ table.tg tr {
+        padding: 0;
+        margin:0;
+    }
+
+table.tg td {
         vertical-align: top;
+        padding: 0px;
+        margin: 0px;
+        border-spacing: 0px;
     }
     .brand-spacing {
       line-height:100%;
@@ -196,7 +204,7 @@
         {{ obj.holder_address.city }}, 
         {% else %} 
         {% endif %} 
-        {% if obj.holder_address.city %}
+        {% if obj.holder_address.state %}
         {{ obj.holder_address.state }}, 
         {% else %}
         {% endif %} 
@@ -339,7 +347,7 @@
                         <img class="alignleft" src="{{ obj.qr_image.url }}" width="80" height="80"/>
                     </td>
                     <td style="width:80%">
-                        <div style="padding-right:90pt;text-align: center;">
+                        <div style="padding-right:60pt;text-align: center;">
                             <h3 style="font-size:14px">Certificate Number : {{ obj.certificate_no }}</h3>
                             <h3 style="font-size:14px">Certificate Holder : {{ obj.certificate_holder.name }}</h3>
                         </div>
@@ -366,7 +374,7 @@
     {% if products %}
     <pdf:nextpage/>
            <div class="uptextsize">
-            <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 14px;width:100%;">
+            <table class="tg" style="display:block;border-collapse: collapse;font-size: 14px;width:100%;" cellpadding="0px">
         {% for product in products %}
 <!--                {% if forloop.counter0|in_list %}-->
 <!--                </table>-->
@@ -384,19 +392,19 @@
                     <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Brand</b></td><td style="width:2%">:</td><td style="text-align:left;"><span class="">{{ product.brand }}</span></td>
                 </tr-->
                 <tr>
-                    <td style="max-width:23%;width:23%;display:inline-block;word-break:break-all;"><b>Model</b></td><td style="width:2%">:</td><td style="text-align:left"><span class="">{{ product.model }}</span></td>
+                    <td style="max-width:23%;width:23%;word-break:break-all;margin:0px;"><b><p style="line-height:1;">Model</p></b></td><td style="width:2%"><p style="line-height:1;">:</p></td><td style="text-align:left"><p style="line-height:1;padding-bottom:0px;margin-bottom:0px;">{{ product.model }}</p></td>
                 </tr>
                 <tr>
-                    <td><b>Rating</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.rating }}</span></td>
+                    <td><b><p style="line-height:1;">Rating</p></b></td><td><p style="line-height:1;">:</p></td><td style="text-align:left"><p style="line-height:1;">{{ product.rating }}</p></td>
                 </tr>
                 <tr>
-                    <td><b>Type</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.type }}</span></td>
+                    <td><b><p style="line-height:1;">Type</b></p></td><td><p style="line-height:1;">:</p></td><td style="text-align:left"><p style="line-height:1;">{{ product.type }}</p></td>
                 </tr>
                 <tr>
-                    <td><b>Size</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.size }}</span></td>
+                    <td><b><p style="line-height:1;">Size</b></p></td><td><p style="line-height:1;">:</p></td><td style="text-align:left;"><p style="line-height:1;">{{ product.size }}</p></td>
                 </tr>
                 <tr>
-                    <td><b>Material</b></td><td>:</td><td style="text-align:left"><span class="">{{ product.material }}</span></td>
+                    <td><b><p style="line-height:1;">Material</b></p></td><td><p style="line-height:1;">:</p></td><td style="text-align:left"><p style="line-height:1;">{{ product.material }}</p></td>
                 </tr>
                 {{product.additional_info|linebreak_to_row}}
 
