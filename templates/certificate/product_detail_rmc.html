@@ -31,7 +31,7 @@
         <tr>
             <td class="green">Address of Certificate Holder</td>
             <td>{{ product.holder_address.address }} {{ product.holder_address.address2 }} {{ product.holder_address.address3 }}
-                {{ product.holder_address.postcode|default_if_none:""  }} {{ product.holder_address.city }}, {{ product.holder_address.state }}, {{ product.holder_address.country }}</td>
+                {{ product.holder_address.postcode|default_if_none:""  }} {{ product.holder_address.city|default_if_none:"" }}{% if product.holder_address.city %},{% endif %} {{ product.holder_address.state|default_if_none:"" }}{% if product.holder_address.state %},{% endif %} {{ product.holder_address.country }}</td>
         </tr>
         <tr>
             <td class="green">Status of Certificate Holder</td>
@@ -68,7 +68,7 @@
         <tr>
             <td class="green">Address of Manufacturer</td>
             <td>{{ product.manufacturer_address.address }} {{ product.manufacturer_address.address2 }} {{ product.manufacturer_address.address3 }}
-                {{ product.manufacturer_address.postcode|default_if_none:""  }} {{ product.manufacturer_address.city }}, {{ product.manufacturer_address.state }}, {{ product.manufacturer_address.country }}</td>
+                {{ product.manufacturer_address.postcode|default_if_none:""  }} {{ product.manufacturer_address.city|default_if_none:"" }}{% if product.manufacturer_address.city %},{% endif %} {{ product.manufacturer_address.state|default_if_none:"" }}{% if product.manufacturer_address.state %},{% endif %}  {{ product.manufacturer_address.country }}</td>
         </tr>
     </table>
 
