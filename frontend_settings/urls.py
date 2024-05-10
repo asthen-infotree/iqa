@@ -5,7 +5,7 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('index/', index, name='home'),
+    path('', index, name='home'),
     # path('services', services, name='service'),
     path('services/<str:name>/', services, name='service'),
     path('about/', about, name='about'),
