@@ -68,7 +68,7 @@ class CertAdmin(SummernoteModelAdmin):
         return obj.expiry_date.strftime('%d.%m.%Y')
 
     def generate_pdf_preview_html(self, obj):
-        return format_html('<a class="button" target="_blank" rel="noopener noreferrer" href="/download/%s">Generate '
+        return format_html('<a class="button" target="_blank" rel="noopener noreferrer" href="/cert/download/%s">Generate '
                            'preview</a> <a class="button" target="_blank" rel="noopener noreferrer" href="%s">QR Code</a>'
                            % (obj.id, obj.qr_image.url))
 

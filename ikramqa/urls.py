@@ -30,9 +30,10 @@ urlpatterns = [
         name='city-autocomplete',
     ),
     path('accounts/', include("allauth.urls")),
+    path("", include("frontend_settings.urls")),
     path("", include("users.urls")),
-    path("", include("certificate.urls")),
-    path("frontend/", include("frontend_settings.urls")),
+    path("cert/", include("certificate.urls")),
+
     path('summernote/', include('django_summernote.urls'))
 ]
 
