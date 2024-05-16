@@ -101,7 +101,8 @@ class CertAdmin(SummernoteModelAdmin):
 
     fieldsets = (
         ('Certificate Details', {
-               'fields': ('certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status', 'image_tag')
+               'fields': ('certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status',
+                          'qr_image', 'image_tag')
         }),
         ('Dates Info', {
             'fields': ('date_original_issue', 'date_renewal', 'date_amendment', 'expiry_date')
