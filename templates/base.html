@@ -59,7 +59,7 @@ https://templatemo.com/tm-591-villa-agency
             <div class="col-lg-9 col-md-9" >
               <p class="text-sm font-semibold text-gray-900 mx-4">
                   <span class="text-base font-bold">IKRAM QA SERVICES SDN BHD</span> <span
-                      class="text-xs font-bold">(199901004665[479565-A]) </span><br>
+                      class="text-xs font-bold">199901004665(479565-A) </span><br>
                   Block 7, Unipark Suria, Jalan Ikram–Uniten,<br>43000 Kajang, Selangor Darul Ehsan, Malaysia<br>
                   <span><strong>Tel: (603) 8738 3204 || Fax: (603) 8736 7254</strong></span> <br>
                   <span><strong>Email: ikramqa@ikram.com.my</strong></span> <br>
@@ -224,22 +224,22 @@ https://templatemo.com/tm-591-villa-agency
 <!--        col-lg-3 col-md-6-->
 <!--        col-lg-2 col-md-6-->
         <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase mb-4">Background</h5>
+          <h5 class="text-uppercase mb-4 text-white">Background</h5>
           <ul class="list-unstyled">
             <li class="mb-2">
-              <a href="#!" class="text-white">Vision & Mission</a>
+              <a href="{% url 'vision_mission' %}" class="text-white">Vision & Mission</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Organisation Chart</a>
+              <a href="{% url 'organisation' %}" class="text-white">Organisation Chart</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Credential</a>
+              <a href="{% url 'credential' %}" class="text-white">Credential</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Directory</a>
+              <a href="{% url 'directory' %}" class="text-white">Directory</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Guides</a>
+              <a href="{% url 'guide' %}" class="text-white">Guides</a>
             </li>
           </ul>
         </div>
@@ -247,26 +247,26 @@ https://templatemo.com/tm-591-villa-agency
 
         <!--Grid column-->
         <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase mb-4">Services</h5>
+          <h5 class="text-uppercase mb-4 text-white">Services</h5>
 
           <ul class="list-unstyled">
             <li class="mb-2">
-              <a href="#!" class="text-white">Product Certification</a>
+              <a href="{% url 'service' 'product' %}" class="text-white">Product Certification</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Ready Mixed Concrete Certification</a>
+              <a href="{% url 'service' 'ready-mixed' %}" class="text-white">Ready Mixed Concrete Certification</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Inspection Service</a>
+              <a href="{% url 'service' 'inspection' %}" class="text-white">Inspection Service</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Laboratory Material Testing</a>
+              <a href="{% url 'service' 'material-testing' %}" class="text-white">Laboratory Material Testing</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Sample & Consignment</a>
+              <a href="{% url 'service' 'sample' %}" class="text-white">Sample & Consignment</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Government Product Listing</a>
+              <a href="{% url 'service' 'government' %}" class="text-white">Government Product Listing</a>
             </li>
           </ul>
         </div>
@@ -274,44 +274,44 @@ https://templatemo.com/tm-591-villa-agency
 
         <!--Grid column-->
         <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase mb-4">Certification</h5>
+          <h5 class="text-uppercase mb-4 text-white">Certification</h5>
 
           <ul class="list-unstyled">
              <li class="mb-2">
-              <a href="#!" class="text-white">Products</a>
+              <a href="{% url 'producttable' %}" class="text-white">Products</a>
             </li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase mb-4">Forms & Guides</h5>
+          <h5 class="text-uppercase mb-4 text-white">Forms & Guides</h5>
 
           <ul class="list-unstyled">
              <li class="mb-2">
-              <a href="#!" class="text-white">Company Profile</a>
+              <a href="{% url 'company_profile' %}" class="text-white">Company Profile</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Product Certification</a>
+              <a href="{% url 'product_certification_guide' %}" class="text-white">Product Certification</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Consignment</a>
+              <a href="{% url 'consignment' %}" class="text-white">Consignment</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Testing</a>
+              <a href="{% url 'testing' %}" class="text-white">Testing</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Inspection</a>
+              <a href="{% url 'inspection' %}" class="text-white">Inspection</a>
             </li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase mb-4">Contact</h5>
+          <h5 class="text-uppercase mb-4 text-white">Contact</h5>
 
           <ul class="list-unstyled">
              <li class="mb-2">
-              <a href="#!" class="text-white">General Info</a>
+              <a href="{% url 'general_info' %}" class="text-white">General Info</a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-white">Feedback</a>
+              <a href="{% url 'feedback' %}" class="text-white">Feedback</a>
             </li>
           </ul>
         </div>
