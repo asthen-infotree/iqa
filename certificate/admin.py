@@ -57,7 +57,8 @@ class CertAdmin(SummernoteModelAdmin):
                     'product_standard', 'status', 'generate_pdf_preview_html')
     exclude_fields = ['qr_image']
     view_on_site = False
-    readonly_fields = ('image_tag',)
+    # readonly_fields = ('image_tag',)
+    #temporary removed image_tag
 
     def date_original(self, obj):
         return obj.date_original_issue.strftime('%d.%m.%Y')
