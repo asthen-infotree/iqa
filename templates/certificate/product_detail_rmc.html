@@ -5,13 +5,16 @@
 
 <div class="container-md fill mt-5 mb-5">
 
-        <div class="row mb-3">
-            <div class="col"><h3>Details of Certificate of Conformity</h3></div>
-            <div class="col d-flex flex-row-reverse">
+    <div class="row mb-3">
+        <div class="col"><h3>Details of Certificate of Conformity</h3></div>
+            <div class="col d-flex justify-content-end">
+                <button type="button" class="btn btn-primary mx-1" onClick="newWindow = window.open('{% url 'download' product.id %}');">
+                    Certificate
+                </button>
                 <button type="button" class="btn btn-primary" onClick="newWindow = window.open('{{ product.qr_image.url }}');">
                     QR Code
                 </button>
-                </div>
+            </div>
         </div>
 
 
