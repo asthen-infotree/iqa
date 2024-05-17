@@ -122,6 +122,7 @@ class product(DatatableView):
         status = columns.TextColumn("Status", sources=None, processor="get_status_display")
         details = columns.TextColumn("Details", sources=None, processor="make_button")
         certificate_holder=columns.TextColumn("Certificate Holder", sources=['certificate_holder__name'])
+        country=columns.TextColumn("Country", sources=['manufacturer_address__country'])
 
         class Meta:
             columns = [
