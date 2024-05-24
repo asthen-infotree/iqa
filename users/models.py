@@ -33,6 +33,7 @@ class CustomUser(AbstractUser):
 
 class Client(models.Model):
     name = models.CharField(max_length=255)
+    roc_no = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Clients"

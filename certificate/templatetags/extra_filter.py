@@ -13,7 +13,7 @@ register = template.Library()
 def linebreak_to_row(value):
     msg = ''
     items = linebreaksbr(value)
-    print('items', items == '')
+
     # print('items',items.split("<br>"))
     if items != '':
         dictionary = [subString.split(":",1) for subString in items.split("<br>")]
@@ -26,7 +26,7 @@ def linebreak_to_row(value):
                 item.insert("")
 
             msg += format_html(
-                '<tr><td style=""><b><p style="line-height:1;">{}</p></b></td><td><p style="line-height:1;">:</p></td><td style="text-align:left"><p style="line-height:1;">{}</p></td></tr>',
+                '<tr><td style=""><b><p style="line-height:1.2;">{}</p></b></td><td><p style="line-height:1.2;">:</p></td><td style="text-align:left"><p style="line-height:1.2;">{}</p></td></tr>',
                 mark_safe(item[0]), mark_safe(item[1]))
     return mark_safe(msg)
 
