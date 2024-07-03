@@ -56,7 +56,7 @@ class CertAdmin(SummernoteModelAdmin):
                     'product_standard', 'status', 'generate_pdf_preview_html')
     exclude_fields = ['qr_image']
     view_on_site = False
-    # readonly_fields = ('image_tag',)
+    readonly_fields = ('image_tag',)
     #temporary removed image_tag
 
     def date_original(self, obj):
@@ -147,7 +147,7 @@ class CertAdmin(SummernoteModelAdmin):
     #         return super().response_add(request, obj, post_url_continue)
 
     def response_change(self, request, obj):  # Here
-
+        print('self', request.POST)
         if "_custom_button" in request.POST:
             # return render_pdf_view(request, obj)
             return redirect(reverse('download', kwargs={'cert_id':obj.id}))

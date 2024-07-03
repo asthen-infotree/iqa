@@ -1,14 +1,18 @@
 from datatableview import Datatable, columns
 from django.contrib import messages
 from django.contrib.sites.models import Site
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
+from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+from xhtml2pdf import pisa
+from xhtml2pdf.files import pisaFileObject
 
 from certificate.models import Certificate
+from certificate.views import link_callback
 from frontend_settings.forms import FeedbackForm
-from frontend_settings.models import Banner
+from frontend_settings.models import Banner, Feedback
 from datatableview.views import DatatableView
 
 
@@ -169,3 +173,23 @@ def product_detail(request, obj_id):
         template='certificate/product_detail_rmc.html'
 
     return render(request, template, context={'product': product, 'product_descriptions': product_descriptions})
+
+
+def download_feedback_pdf(request, feedback_id):
+    feedback_obj=Feedback.objects.get(id=feedback_id)
+    template_path='feedback/download_template.html'
+    context = {'feedback_obj': feedback_obj}
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = 'inline; filename="%s.pdf"' % feedback_obj.subject
+
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisaFileObject.getNamedFile = lambda self: self.uri
+    pisa_status = pisa.CreatePDF(
+        html, dest=response, link_callback=link_callback, encoding='utf-8')
+
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+

@@ -98,7 +98,6 @@ def render_pdf_view(request,cert_id):
         template_path = "certificate/certificate_template3.html"
         producer_code = ", ".join(product.rmc_producer_code for product in products)
     # context = extract_request_variables(request)
-
     context = {'obj': obj, 'products': products, 'producer_code':producer_code}
     # print('rating',products[1].rating)
     response = HttpResponse(content_type="application/pdf")

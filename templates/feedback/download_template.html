@@ -1,0 +1,70 @@
+<html>
+<head>
+<style>
+
+    @font-face {
+        font-family: Segoe UI;
+        src: url('https://ikramqa.blob.core.windows.net/static/cert/font/segeoui.ttf');
+    }
+    @font-face {
+       font-family: Segoe UI Bold;
+       src: url('https://ikramqa.blob.core.windows.net/static/cert/font/SEGOEUIB.TTF');
+       font-weight: bold;
+    }
+
+    @page {
+        size: a4 portrait;
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 50pt; height: 672pt;
+        }
+    }
+
+    body {
+        font-family: Segoe UI;
+        font-size: 14px;
+        }
+    h1 {
+        font-family: Segoe UI;
+        font-size: 20px;
+        font-weight: normal;
+    }
+    td {
+        line-height: auto;
+        vertical-align: middle;
+        padding: 10px;
+        margin: 0px;
+        height: 50px;
+    }
+
+    .strong {
+        font-family: Segoe UI Bold;
+        font-weight: bold;
+        width: 30%;
+    }
+</style>
+</head>
+
+<body>
+  <h1>{{feedback_obj.subject}}</h1>
+  <table id="feedback" border="1">
+    <tr>
+        <td class="strong">Name</td>
+        <td>{{feedback_obj.name}}</td>
+    </tr>
+    <tr>
+        <td class="strong">Email</td>
+        <td>{{feedback_obj.email}}</td>
+    </tr>
+    <tr>
+        <td class="strong">Phone No</td>
+        <td>{{feedback_obj.phone_no}}</td>
+    </tr>
+    <tr>
+        <td class="strong">Message</td>
+        <td>{{feedback_obj.message}}</td>
+    </tr>
+  </table>
+</body>
+
+
+</html>
