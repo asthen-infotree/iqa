@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from django.urls import path, include
 
 from ikramqa import settings
+from .api import api
 from users.models import CityAutocomplete
 
 urlpatterns = [
@@ -33,8 +34,8 @@ urlpatterns = [
     path("", include("frontend_settings.urls")),
     path("", include("users.urls")),
     path("cert/", include("certificate.urls")),
-
-    path('summernote/', include('django_summernote.urls'))
+    path('summernote/', include('django_summernote.urls')),
+    path("api/", api.urls),
 ]
 
 if settings.DEBUG:
