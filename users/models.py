@@ -1,6 +1,7 @@
 from cities_light.models import City
 from django.contrib.auth.models import AbstractUser
 from dal import autocomplete
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.html import format_html
 
@@ -42,6 +43,11 @@ class Client(models.Model):
         return self.name
 
 
+def only_int(value):
+    if value.isdigit()==False:
+        raise ValidationError('Postcode can only contain digits')
+
+
 class ClientAddress(models.Model):
 
     STATUS_CHOICES = (
@@ -55,7 +61,7 @@ class ClientAddress(models.Model):
     address3 = models.TextField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True,null=True)
-    postcode = models.IntegerField(blank=True, null=True)
+    postcode = models.CharField(blank=True, null=True, max_length=255, validators=[only_int])
     country = models.CharField(max_length=255, blank=True,null=True)
     status = models.CharField(default='1', max_length=1, choices=STATUS_CHOICES)
 
@@ -81,6 +87,10 @@ class ClientAddress(models.Model):
         #     self.address3, self.city, self.postcode, self.state
         # )
 
+    def save(self):
+        print(self.clean())
+        super(ClientAddress, self).save()
+
 class Manufacturer(models.Model):
     name = models.CharField(max_length=255)
 
@@ -98,7 +108,7 @@ class ManufacturerAddress(models.Model):
     address3 = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True, null=True)
-    postcode = models.IntegerField(blank=True, null=True)
+    postcode = models.CharField(blank=True, null=True, max_length=255, validators=[only_int])
     # country = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
