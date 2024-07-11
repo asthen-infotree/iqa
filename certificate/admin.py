@@ -53,7 +53,7 @@ class CertAdmin(SummernoteModelAdmin):
     search_fields = ['certificate_no','certificate_holder__name']
     summernote_fields = ('information',)
     # actions = [makeWatermark]
-    list_display = ('certificate_no', 'date_original', 'date_renew', 'expire_date',
+    list_display = ('certificate_no', 'date_original', 'date_renew', 'expiry_date',
                     'short_product_standard', 'status', 'generate_pdf_preview_html')
     exclude_fields = ['qr_image']
     view_on_site = False
@@ -77,6 +77,9 @@ class CertAdmin(SummernoteModelAdmin):
         if obj.date_amendment:
             return obj.date_amendment.strftime('%d.%m.%Y')
         return 'NIL'
+
+    def expiry_date(self, obj):
+        return obj.expiry_date.strftime('%d.%m.%Y')
 
     def generate_pdf_preview_html(self, obj):
         return format_html('<a class="button" target="_blank" rel="noopener noreferrer" href="/cert/download/%s">Generate '
