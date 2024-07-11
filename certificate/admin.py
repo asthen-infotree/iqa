@@ -53,13 +53,17 @@ class CertAdmin(SummernoteModelAdmin):
     search_fields = ['certificate_no','certificate_holder__name']
     summernote_fields = ('information',)
     # actions = [makeWatermark]
-    list_display = ('certificate_no', 'date_original', 'date_renew', 'expiry_date',
-                    'product_standard', 'status', 'generate_pdf_preview_html')
-    # exclude_fields = ['qr_image']
-    # temporary hash exclude qr_image
+    list_display = ('certificate_no', 'date_original', 'date_renew', 'expire_date',
+                    'short_product_standard', 'status', 'generate_pdf_preview_html')
+    exclude_fields = ['qr_image']
     view_on_site = False
     readonly_fields = ('image_tag',)
 
+    def short_product_standard(self,obj):
+        if len(str(obj.product_standard)) > 26:
+            return str(obj.product_standard)[:25] + '...'
+        else:
+            return str(obj.product_standard)
 
     def date_original(self, obj):
         return obj.date_original_issue.strftime('%d.%m.%Y')
@@ -79,6 +83,7 @@ class CertAdmin(SummernoteModelAdmin):
                            'preview</a> <a class="button" target="_blank" rel="noopener noreferrer" href="%s">QR Code</a>'
                            % (obj.id, obj.qr_image.url))
 
+    short_product_standard.short_description = "Product Standard"
     generate_pdf_preview_html.short_description = 'Actions'
     date_original.short_description = 'Original Issue Date'
     date_renew.short_description = 'Renewal Date'
