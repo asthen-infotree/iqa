@@ -80,7 +80,7 @@ class CertAdmin(SummernoteModelAdmin):
                            'preview</a> <a class="button" target="_blank" rel="noopener noreferrer" href="%s">QR Code</a>'
                            % (obj.id, obj.qr_image.url))
 
-    short_Product_standard.short_description = "Product Standard"
+    short_product_standard.short_description = "Product Standard"
     generate_pdf_preview_html.short_description = 'Actions'
     date_original.short_description = 'Original Issue Date'
     date_renew.short_description = 'Renewal Date'
