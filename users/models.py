@@ -87,6 +87,9 @@ class ClientAddress(models.Model):
         #     self.address3, self.city, self.postcode, self.state
         # )
 
+    def save(self):
+        # print(self.clean())
+        super(ClientAddress, self).save()
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=255)
@@ -101,8 +104,8 @@ class Manufacturer(models.Model):
 class ManufacturerAddress(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     address = models.TextField(max_length=255)
-    address2 = models.TextField(max_length=255, blank=True)
-    address3 = models.TextField(max_length=255, blank=True)
+    address2 = models.CharField(max_length=255, blank=True)
+    address3 = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True, null=True)
     postcode = models.CharField(blank=True, null=True, max_length=255, validators=[only_int])

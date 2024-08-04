@@ -45,16 +45,26 @@ admin.site.unregister(Country)
 admin.site.unregister(City)
 admin.site.unregister(SubRegion)
 admin.site.unregister(Region)
-admin.site.register(Client)
-
 
 # class ClientAddressAdmin(admin.ModelAdmin):
 #     form = ClientAddressForm
 
 
-admin.site.register(ClientAddress)
-admin.site.register(Manufacturer)
-admin.site.register(ManufacturerAddress)
+class Manufacturer_Client_Admin(admin.ModelAdmin):
+    search_fields = ['name']
+
+
+class Client_Address_Admin(admin.ModelAdmin):
+    search_fields = ['client__name', 'address', 'address2', 'address3', 'city', 'state']
+
+admin.site.register(ClientAddress, Client_Address_Admin)
+admin.site.register(Manufacturer, Manufacturer_Client_Admin)
+admin.site.register(Client, Manufacturer_Client_Admin)
+
+class Manufacturer_Address_Admin(admin.ModelAdmin):
+    search_fields = ['manufacturer__name', 'address', 'address2', 'address3', 'city', 'state']
+
+admin.site.register(ManufacturerAddress, Manufacturer_Address_Admin)
 admin.site.register(CustomUser, AccountAdmin)
 
 # @admin.register(ManufacturerAddress)

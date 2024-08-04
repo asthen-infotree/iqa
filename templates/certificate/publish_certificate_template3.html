@@ -189,67 +189,62 @@ table.tg td {
         <div class="image-container">
             <img src ="{% static 'images/IKRAM.png' %}" width="100" height="100" style="object-fit: contain;" />
         </div>
-            <h1>PRODUCT CERTIFICATE OF CONFORMITY</h1>
+            <h1>CERTIFICATE OF CONFORMITY FOR READY-MIXED CONCRETE</h1>
             <h2>Certificate Number : {{ obj.certificate_no }}</h2>
     </div>
 
     <p class="italic">Certificate Holder<br/>
-    <span class="bold-italic">{{ obj.certificate_holder.name }}<br/>
-        {{ obj.holder_address.address }} {{ obj.holder_address.address2 }} {{ obj.holder_address.address3 }}<br/>
-        {% if obj.holder_address.postcode %}
-        {{ obj.holder_address.postcode }}
+    <span class="bold-italic">{{ obj.certificate_holder }}<br/>
+        {{ obj.holder_address }} {{ obj.holder_address2 }} {{ obj.holder_address3 }}<br/>
+        {% if obj.holder_postcode %}
+        {{ obj.holder_postcode }}
+        {% else %} 
+        {% endif %} 
+        {% if obj.holder_city %}
+        {{ obj.holder_city }},
+        {% else %} 
+        {% endif %} 
+        {% if obj.holder_state %}
+        {{ obj.holder_state }},
         {% else %}
-        {% endif %}
-        {% if obj.holder_address.city %}
-        {{ obj.holder_address.city }},
-        {% else %}
-        {% endif %}
-        {% if obj.holder_address.state %}
-        {{ obj.holder_address.state }},
-        {% else %}
-        {% endif %}
-        {{ obj.holder_address.country}}<br/>
+        {% endif %} 
+        {{ obj.holder_country}}<br/>
 
     </span></p>
-    <p class="italic">Product Name<br/>
-    <span class="bold-italic">{{ obj.product_name }}</span></p>
 
-    <p class="italic">Standard<br/>
-        <span class="bold-italic">{{ obj.product_standard }}</span></p>
-    <p class="italic">Product Description<br/>
-    <span class="bold-italic">{{ obj.product_description }}</span></p>
-    <p class="italic brand-spacing">Brands
-    {% for brand in obj.brands.all %}
-        {% if forloop.counter0|divisibleby:5 %}
-            <br/>
-            <img src="{{ brand.logo.url }}" width="80" height="40" style="max-width:80;object-fit: cover;" />&nbsp
-        {% else %}
-            <img src="{{ brand.logo.url }}" width="80" height="40" style="max-width:80;object-fit: cover;" />&nbsp
-        {% endif %}
-    {% endfor %}
-    </p>
-    <p class="italic">Manufacturer<br/>
-    <span class="bold-italic">{{ obj.manufacturer.name }}
+    <p class="italic">Producer<br/>
+    <span class="bold-italic">{{ obj.manufacturer }}
     <br/>
-        {{ obj.manufacturer_address.address }} {{ obj.manufacturer_address.address2 }} {{ obj.manufacturer_address.address3 }}<br/>
-        {% if obj.manufacturer_address.postcode %}
-        {{ obj.manufacturer_address.postcode }}
+        {{ obj.manufacturer_address }} {{ obj.manufacturer_address2 }} {{ obj.manufacturer_address3 }}<br/>
+        {% if obj.manufacturer_postcode %}
+        {{ obj.manufacturer_postcode }}
         {% else %}
         {% endif %}
-        {% if obj.manufacturer_address.city %}
-        {{ obj.manufacturer_address.city }},
+        {% if obj.manufacturer_city %}
+        {{ obj.manufacturer_city }},
         {% else %}
         {% endif %}
-        {% if obj.manufacturer_address.state %}
-        {{ obj.manufacturer_address.state }},
+        {% if obj.manufacturer_state %}
+        {{ obj.manufacturer_state }},
         {% else %}
         {% endif %}
-        {{ obj.manufacturer_address.country}}<br/>
+        {{ obj.manufacturer_country}}<br/>
 
     </span>
     </p>
+
+    <p class="italic">Plant Identity<br/>
+    <span class="bold-italic">{{ obj.plant_identity }}</span></p>
+    <p class="italic">Type of Batching Plant<br/>
+        <span class="bold-italic">{{ obj.product_name }}</span></p>
+    <p class="italic">Standards<br/>
+    <span class="bold-italic">{{ obj.product_standard }}</span></p>
+    <p class="italic">Ready-Mixed Concrete Producer's Code<br/>
+    <span class="bold-italic">{{ producer_code }}</span></p>
+    <p class="italic">Details of designed concrete particular shall refer to ANNEX</p>
+
     <br/>
-    <table width="100%">
+    <table>
         <tr>
             <td style="text-align:center;"><p class="italic">Date of Original Issue</td>
             <td style="text-align:center;"><p class="italic">Date of Renewal</p></td>
@@ -269,7 +264,7 @@ table.tg td {
         <tr>
             <td width="23%">
         <!--div class="inline-block"-->
-            <img class="alignleft" src="#" width="150" height="150"/>
+            <img class="alignleft" src="{{ obj.qr_image.url }}" width="150" height="150"/>
             </td>
             <td width="5%"></td>
              <td>
@@ -278,8 +273,8 @@ table.tg td {
                     <p style="margin-bottom:5px;">
                         <table id="tablelogo" style="background-color:#c3e5fa;" >
                             <tr style="height:60px;width:100%;">
-                                <td width="50%" align="right"><img src ="{% static 'images/KMark.png' %}" width="50" height="55" style="object-fit: contain;" />&nbsp</td>
-                                <td align="left"><img src ="{% static '/images/standards_acb013.png' %}" width="85" height="55" style="object-fit: contain" /></td>
+                                <td width="32%" align="right"><img src ="{% static '/images/RMC.png' %}" width="50" height="50" style="object-fit: contain;" />&nbsp</td>
+                                <td align="left"><img src ="{% static 'images/iaf_acb013_temp4.png' %}" width="210" height="55" style="object-fit: contain;" /></td>
                             </tr>
                         </table>
                     </p>
@@ -293,48 +288,56 @@ table.tg td {
              </td>
         </tr>
         </table>
-        <br/>
+        <!--/div-->
+        <!--&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="inline-block">
+            <img src="static/images/signature.png" width="700" height="300"/>
+        </div-->
+		<br/>
         <br/>
         <div align="center" style="text-align: center;width:200px;">page <pdf:pagenumber />
             of <pdf:pagecount />
             </div>
-
     </div>
-    <!-- switch page templates -->
 
+
+    <!-- switch page templates -->
+    {% if products %}
     <pdf:nexttemplate name="second_template"/>
     <!--<pdf:nextpage/>-->
     <div id="header">
         <table class="banner">
         <tr>
-            <td style="width:15%;text-align:left;">
-                <div class="inline-block">
-                    <img src ="{% static '/images/IKRAM.png' %}" width="70" height="70"/>
-                </div>
-            </td>
-            <td style="width:15%;text-align:left;">
-                <div class="inline-block">
-                <img src ="{% static '/images/KMark.png' %}" width="68" height="72" />
-                </div>
+            <td style="width:12%;text-align:left;">
+            <div class="inline-block">
+                <img src ="{% static '/images/IKRAM.png' %}" width="70" height="70"/>
+            </div>
             </td>
 
-            <td style="width:19%;text-align:left;">
-                <div class="inline-block">
-                    <img src ="{% static '/images/standards_acb013.png' %}" width="130" height="80"/>
-                </div>
+            <td style="width:12%;text-align:left;">
+            <div class="inline-block">
+            <img src ="{% static '/images/RMC.png' %}" width="68" height="68" />
+            </div>
             </td>
-            <td style="width:5%;">
-            </td>
-            <td style="text-align:left;line-height:1em;">
-                <div class="inline-block">
-                    IKRAM QA Services Sdn. Bhd. (199901004665)<br/>
-                    Address: Block 7, Unipark Suria, Jalan Ikram–Uniten,<br/>
-                    43000 Kajang, Selangor Darul Ehsan, Malaysia.<br/>
-                    Tel: +603 8738 3212 Fax: +603 8736 7254<br/>
-                    Email: ikramqa@ikram.com.my <br/>
-                    Website: www.ikramqa.com.my
-                </div>
-            </td>
+
+        <td style="width:30%;text-align:center;vertical-align: middle;">
+                    <div class="inline-block">
+                        <img src ="{% static '/images/iaf_acb013_temp4.png' %}" width="220" height="70"/>
+                    </div>
+                </td>
+        <td style="width:5%;">
+        </td>
+        <td style="text-align:left;line-height:1em;">
+        <div class="inline-block">
+            IKRAM QA Services Sdn. Bhd. (199901004665)<br/>
+            Address: Block 7, Unipark Suria, Jalan Ikram–Uniten,<br/>
+            43000 Kajang, Selangor Darul Ehsan, Malaysia.<br/>
+            Tel: +603 8738 3212 Fax: +603 8736 7254<br/>
+            Email: ikramqa@ikram.com.my <br/>
+            Website: www.ikramqa.com.my
+        </div>
+        </td>
         </tr>
         </table>
 
@@ -344,12 +347,12 @@ table.tg td {
             <table style="display:inline;">
                 <tr>
                     <td style="text-align:left;width:20%">
-                        <img class="alignleft" src="#" width="80" height="80"/>
+                        <img class="alignleft" src="{{ obj.qr_image.url }}" width="80" height="80"/>
                     </td>
                     <td style="width:80%">
                         <div style="padding-right:55pt;text-align: center;">
                             <h3 style="font-size:14px">Certificate Number : {{ obj.certificate_no }}</h3>
-                            <h3 style="font-size:14px">Certificate Holder : {{ obj.certificate_holder.name }}</h3>
+                            <h3 style="font-size:14px">Certificate Holder : {{ obj.certificate_holder }}</h3>
                         </div>
                     </td>
                 </tr>
@@ -371,44 +374,26 @@ table.tg td {
             </tr>
         </table>
     </div>
-    {% if products %}
     <pdf:nextpage/>
            <div class="uptextsize">
-            <table class="tg" style="display:block;border-collapse: collapse;font-size: 14px;width:100%;" cellpadding="0px">
+            <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 14px;width:100%;">
         {% for product in products %}
 <!--                {% if forloop.counter0|in_list %}-->
 <!--                </table>-->
 <!--                <pdf:nextpage />-->
 <!--                <table class="tg" style="table-layout: fixed;border-collapse: collapse;font-size: 12px;width:100%;">-->
 <!--                {% endif %}-->
-                {% if forloop.counter0 == 0 %}
+               {% if forloop.counter0 == 0 %}
 
                 {% else %}
                 <tr>
 
                 </tr>
                 {% endif %}
-                <!--tr>
-                    <td style="max-width:12%;width:12%;display:inline-block;word-break:break-all;"><b>Brand</b></td><td style="width:2%">:</td><td style="text-align:left;"><span class="">{{ product.brand }}</span></td>
-                </tr-->
                 <tr>
-                    <td style="max-width:23%;width:23%;word-break:break-all;margin:0px;"><b><p style="line-height:1.2;">Model</p></b></td><td style="width:2%"><p style="line-height:1.2;">:</p></td><td style="text-align:left"><p style="line-height:1.2;padding-bottom:0px;margin-bottom:0px;">{{ product.model }}</p></td>
+                    <td style="max-width:35%;width:35%;display:inline-block;word-break:break-all;margin:0px;"><b><p style="line-height:1.2;">Producer's Code</p></b></td><td style="width:2%"><p style="line-height:1.2;">:</p></td><td style="text-align:left;"><p style="line-height:1.2;padding-bottom:0px;margin-bottom:0px;">{{ product.rmc_producer_code }}</p></td>
                 </tr>
-                <tr>
-                    <td><b><p style="line-height:1.2;">Rating</p></b></td><td><p style="line-height:1.2;">:</p></td><td style="text-align:left"><p style="line-height:1.2;">{{ product.rating }}</p></td>
-                </tr>
-                <tr>
-                    <td><b><p style="line-height:1.2;">Type</b></p></td><td><p style="line-height:1.2;">:</p></td><td style="text-align:left"><p style="line-height:1.2;">{{ product.type }}</p></td>
-                </tr>
-                <tr>
-                    <td><b><p style="line-height:1.2;">Size</b></p></td><td><p style="line-height:1.2;">:</p></td><td style="text-align:left;"><p style="line-height:1.2;">{{ product.size }}</p></td>
-                </tr>
-                <tr>
-                    <td><b><p style="line-height:1.2;">Material</b></p></td><td><p style="line-height:1.2;">:</p></td><td style="text-align:left"><p style="line-height:1.2;">{{ product.material }}</p></td>
-                </tr>
-                {% if product.additional_info %}
-                {{product.additional_info|linebreak_to_row}}
-                {% endif %}
+                {{ product.additional_info|linebreak_to_row }}
 
         {% endfor %}
 
@@ -418,15 +403,80 @@ table.tg td {
         of <pdf:pagecount />
     </div>
     {% endif %}
+
     <pdf:nextpage/>
+<!--    <div id="header">-->
+<!--       <table class="banner">-->
+<!--        <tr>-->
+<!--            <td style="width:17%;text-align:left;">-->
+<!--            <div class="inline-block">-->
+<!--            <img src ="{% static '/images/RMC.png' %}" width="80" height="80" />-->
+<!--            </div>-->
+<!--        </td>-->
+<!--        <td style="width:17%;text-align:left;">-->
+<!--        <div class="inline-block">-->
+<!--            <img src ="{% static '/images/IKRAM.png' %}" width="80" height="80"/>-->
+<!--        </div>-->
+<!--        </td>-->
+<!--        <td style="width:21%;text-align:left;">-->
+<!--        <div class="inline-block">-->
+<!--            <img src ="{% static '/images/ACB.png' %}" width="130" height="80"/>-->
+<!--        </div>-->
+<!--        </td>-->
+<!--        <td style="width:2%;">-->
+<!--        </td>-->
+<!--        <td style="text-align:left;line-height:1em;">-->
+<!--        <div class="inline-block">-->
+<!--            IKRAM QA Services Sdn. Bhd. (199901004665)<br/>-->
+<!--            Address: Block 7, Level 1, Unipark Suria, Jalan Ikram–Uniten,<br/>-->
+<!--            43000 Kajang, Selangor Darul Ehsan, Malaysia.<br/>-->
+<!--            Tel: +603 8738 3212 Fax: +603 8736 7254<br/>-->
+<!--            Email: ikramqa@ikram.com.my Website: www.ikramqa.com.my-->
+<!--        </div>-->
+<!--        </td>-->
+<!--        </tr>-->
+<!--        </table>-->
+<!--        <h1 class="position">ANNEX</h1>-->
+<!--        <div>-->
+<!--            <table style="display:inline;">-->
+<!--                <tr>-->
+<!--                    <td style="text-align:left;width:20%">-->
+<!--                        <img class="alignleft" src="{{ obj.qr_image.url }}" width="80" height="80"/>-->
+<!--                    </td>-->
+<!--                    <td style="width:80%">-->
+<!--                        <div style="padding-right:90pt;text-align: center;">-->
+<!--                            <h3>Certificate No : {{ obj.certificate_no }}</h3>-->
+<!--                            <h3>Certificate Holder : {{ obj.certificate_holder.name }}</h3>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </div>-->
+
+<!--        <br />-->
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <td style="text-align:center;"><p class="italic">Date of Orignal Issue</td>-->
+<!--                <td style="text-align:center;"><p class="italic">Date of Renewal</p></td>-->
+<!--                <td style="text-align:center;"><p class="italic">Date of Amendment</p></td>-->
+<!--                <td style="text-align:center;"><p class="italic">Expiry Date</p></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td style="text-align:center;"><span class="italic">{{ obj.date_original_issue|date:'d.m.Y' }}</span></td>-->
+<!--                <td style="text-align:center;"><span class="italic">{{ obj.date_renewal|date:'d.m.Y' }}</span></td>-->
+<!--                <td style="text-align:center;"><span class="italic">{{ obj.date_amendment|date:'d.m.Y' }}</span></td>-->
+<!--                <td style="text-align:center;"><span class="italic">{{ obj.expiry_date|date:'d.m.Y' }}</span></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </div>-->
 
     <span style="line-height: 1em;">
         {{ obj.information|safe }}
     </span>
 
-    <div id="footer_content2">page <pdf:pagenumber />
-        of <pdf:pagecount />
-    </div>
+<!--    <div id="footer_content2">page <pdf:pagenumber />-->
+<!--        of <pdf:pagecount />-->
+<!--    </div>-->
 
 </body>
 </html>
