@@ -18,7 +18,7 @@ def linebreak_to_row(value):
     if items != '':
         dictionary = [subString.split(":",1) for subString in items.split("<br>")]
         for item in dictionary:
-            print('I', item)
+            # print('I', item)
             item_zero = html.unescape(item[0]).strip()
             if len(item_zero) > 15 and not re.search('\s', item_zero):
                     item[0] = item_zero[0:14] + " " + item_zero[14:]
@@ -28,6 +28,7 @@ def linebreak_to_row(value):
             msg += format_html(
                 '<tr><td style=""><b><p style="line-height:1.2;">{}</p></b></td><td><p style="line-height:1.2;">:</p></td><td style="text-align:left"><p style="line-height:1.2;">{}</p></td></tr>',
                 mark_safe(item[0]), mark_safe(item[1]))
+
     return mark_safe(msg)
 
     # for x, y in dictionary.items():
@@ -39,10 +40,10 @@ def linebreak_to_row(value):
 @register.filter
 def linebreak_to_web_row(value):
     msg = ''
-    if value is not '':
+    if value != '':
         items = linebreaksbr(value)
         dictionary = [subString.split(":",1) for subString in items.split("<br>")]
-        print('dict',dictionary)
+        # print('dict',dictionary)
         for item in dictionary:
             if len(item) < 2:
                 item.insert("")

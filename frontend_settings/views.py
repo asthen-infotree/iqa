@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 from xhtml2pdf import pisa
 from xhtml2pdf.files import pisaFileObject
 
-from certificate.models import Certificate
+from certificate.models import Certificate, PublishCertificate
 from certificate.views import link_callback
 from frontend_settings.forms import FeedbackForm
 from frontend_settings.models import Banner, Feedback
@@ -117,16 +117,19 @@ from datatableview.views.legacy import LegacyDatatableView
 
 
 class product(DatatableView):
-    model = Certificate
+    # model = Certificate
+    model = PublishCertificate
 
     def get_queryset(self):
-        return Certificate.objects.filter(status='2')
+        # return Certificate.objects.filter(status='2')
+        return PublishCertificate.objects.filter(status='2')
 
 
     class datatable_class(Datatable):
         status = columns.TextColumn("Status", sources=None, processor="get_status_display")
+        country = columns.TextColumn("Manufacturer Country", sources='country')
         details = columns.TextColumn("Details", sources=None, processor="make_button")
-        certificate_holder=columns.TextColumn("Certificate Holder", sources=['certificate_holder__name'])
+        # certificate_holder=columns.TextColumn("Certificate Holder", sources=['certificate_holder'])
 
         class Meta:
             columns = [
@@ -140,7 +143,8 @@ class product(DatatableView):
                         'details']
 
         def get_initial_queryset(self):
-            return Certificate.objects.filter(status="2")
+            # return Certificate.objects.filter(status="2")
+            return PublishCertificate.objects.filter(status="2")
 
         def get_status_display(self, instance, **kwargs):
             return instance.get_status_display()
@@ -153,21 +157,14 @@ class product(DatatableView):
             url = "/product/{}/detail/".format(instance.id)
             path=reverse('product_detail', args=[instance.id])
             return mark_safe(f"""<a href=%s target="_blank" rel="noopener noreferrer">View</a>""" % path)
-    # datatable_options = {
-    #     'columns':['certificate_holder',
-    #                'certificate_no',
-    #                'product_name',
-    #                'product_standard',
-    #                'country',
-    #                'expiry_date',
-    #                'status']
-    # }
+
     template_name = "certificate/producttable.html"
 
 
 def product_detail(request, obj_id):
-    product=Certificate.objects.get(id=obj_id)
-    product_descriptions = product.product_set.all()
+    # product=Certificate.objects.get(id=obj_id)
+    product=PublishCertificate.objects.get(id=obj_id)
+    product_descriptions = product.publishproduct_set.all()
     template='certificate/product_detail.html'
     if product.template == '3':
         template='certificate/product_detail_rmc.html'

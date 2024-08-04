@@ -8,7 +8,7 @@
         <div class="row mb-3">
             <div class="col"><h3>Details of Certificate of Conformity</h3></div>
             <div class="col d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary mx-1" onClick="newWindow = window.open('{% url 'download' product.id %}');">
+                    <button type="button" class="btn btn-primary mx-1" onClick="newWindow = window.open('{% url 'publish_download' product.id %}');">
                         Certificate
                     </button>
                     <button type="button" class="btn btn-primary" onClick="newWindow = window.open('{{ product.qr_image.url }}');">
@@ -29,16 +29,16 @@
         </tr>
         <tr>
             <td class="green">Name of Certificate Holder</td>
-            <td>{{ product.certificate_holder.name }}</td>
+            <td>{{ product.certificate_holder }}</td>
         </tr>
         <tr>
             <td class="green">Address of Certificate Holder</td>
-            <td>{{ product.holder_address.address }} {{ product.holder_address.address2 }} {{ product.holder_address.address3 }}
-                {{ product.holder_address.postcode|default_if_none:""  }} {{ product.holder_address.city|default_if_none:""}}{% if product.holder_address.city %},{% endif %} {{ product.holder_address.state|default_if_none:"" }}{% if product.holder_address.state %},{% endif %}{{ product.holder_address.country }}</td>
+            <td>{{ product.holder_address }} {{ product.holder_address2 }} {{ product.holder_address3 }}
+                {{ product.holder_postcode|default_if_none:""  }} {{ product.holder_city|default_if_none:""}}{% if product.holder_city %},{% endif %} {{ product.holder_state|default_if_none:"" }}{% if product.holder_state %},{% endif %}{{ product.holder_country }}</td>
         </tr>
         <tr>
             <td class="green">Status of Certificate Holder</td>
-            <td>{{ product.holder_address.get_status_display }}</td>
+            <td>{{ product.get_holder_status_display }}</td>
         </tr>
         <tr>
             <td class="green">Product Name</td>
@@ -66,8 +66,8 @@
         </tr>
         <tr>
             <td class="green">Address of Manufacturer</td>
-            <td>{{ product.manufacturer_address.address }} {{ product.manufacturer_address.address2 }} {{ product.manufacturer_address.address3 }}
-                {{ product.manufacturer_address.postcode|default_if_none:""  }} {{ product.manufacturer_address.city|default_if_none:"" }}{% if product.manufacturer_address.city %},{% endif %} {{ product.manufacturer_address.state|default_if_none:"" }}{% if product.manufacturer_address.state %},{% endif %} {{ product.manufacturer_address.country }}</td>
+            <td>{{ product.manufacturer_address }} {{ product.manufacturer_address2 }} {{ product.manufacturer_address3 }}
+                {{ product.manufacturer_postcode|default_if_none:""  }} {{ product.manufacturer_city|default_if_none:"" }}{% if product.manufacturer_city %},{% endif %} {{ product.manufacturer_state|default_if_none:"" }}{% if product.manufacturer_state %},{% endif %} {{ product.manufacturer_country|default_if_none:"" }}</td>
         </tr>
     </table>
 
@@ -79,10 +79,10 @@
 
     {% for product in product_descriptions %}
         <table class="table table-bordered producttable">
-                <tr>
-                    <td class="green">Brand</td>
-                    <td style="text-align:left;"><span class="">{{ product.brand }}</span></td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td class="green">Brand</td>-->
+<!--                    <td style="text-align:left;"><span class="">{{ product.brand }}</span></td>-->
+<!--                </tr>-->
                 <tr>
                     <td class="green">Model</td>
                     <td style="text-align:left"><span class="">{{ product.model }}</span></td>

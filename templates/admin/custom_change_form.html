@@ -6,7 +6,8 @@
 {{ media }}
 {% endblock %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/forms.css" %}">{% endblock %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/css/forms.css' %}">
+{% endblock %}
 
 {% block coltype %}colM{% endblock %}
 
@@ -77,5 +78,6 @@
 {% prepopulated_fields_js %}
 
 </div>
-</form></div>
+</form>
+</div>
 {% endblock %}

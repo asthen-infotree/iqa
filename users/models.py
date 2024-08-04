@@ -109,7 +109,7 @@ class ManufacturerAddress(models.Model):
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True, null=True)
     postcode = models.CharField(blank=True, null=True, max_length=255, validators=[only_int])
-    # country = models.CharField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Manufacturer Addresses"

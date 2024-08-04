@@ -106,6 +106,10 @@ def one_year_hence():
 #         return self.product.product_name
 
 
+def initial_val():
+    return "Product descriptions shall refer to ANNEX"
+
+
 class Certificate(models.Model):
     STATUS_CHOICES = (
         ("1", "DRAFT"),
@@ -126,15 +130,16 @@ class Certificate(models.Model):
     date_renewal = models.DateField(blank=True, null=True)
     date_amendment = models.DateField(blank=True, null=True)
     expiry_date = models.DateField(default=one_year_hence)
+    publish_date = models.DateTimeField(blank=True, null=True)
     certificate_holder = models.ForeignKey(Client, on_delete=models.CASCADE)
     holder_address = models.ForeignKey(ClientAddress, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=255)
     plant_identity = models.CharField(max_length=255, blank=True, null=True)
     # product=models.ForeignKey(Product,null=True, blank=True, on_delete=models.CASCADE)
     product_standard = models.ForeignKey(Standards, on_delete=models.CASCADE)
-    product_description = models.TextField()
+    product_description = models.TextField(default=initial_val)
     brands = models.ManyToManyField(Brand, blank=True)
-    country = CountryField(default='MY')
+    country = CountryField("Manufacturer Country", default='MY')
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     manufacturer_address = models.ForeignKey(ManufacturerAddress, on_delete=models.CASCADE)
     # annex = models.TextField(blank=True)
@@ -147,6 +152,10 @@ class Certificate(models.Model):
         return self.certificate_no
 
         # save method
+    def get_draft_cert(self):
+        if hasattr(self, 'publishcertificate'):
+            return self.publishcertificate
+        return None
 
     def get_admin_url(self, request):
         return request.build_absolute_uri(
@@ -210,3 +219,76 @@ class ProductDescription(models.Model):
     def __str__(self):
         return self.product.brand
 
+
+#-------------Publish tables--------------------#
+
+class PublishCertificate(models.Model):
+
+    CLIENT_STATUS_CHOICES = (
+        ("1", "ACTIVE"),
+        ("2", "NOT ACTIVE"),
+    )
+
+    draft_certificate = models.OneToOneField(Certificate, null=True, on_delete=models.CASCADE)
+    certificate_no = models.CharField(max_length=30)
+    template = models.CharField(default='1', max_length=1, choices=Certificate.TEMPLATE_CHOICES)
+    date_original_issue = models.DateField()
+    date_renewal = models.DateField(blank=True, null=True)
+    date_amendment = models.DateField(blank=True, null=True)
+    expiry_date = models.DateField(default=one_year_hence)
+    certificate_holder = models.CharField(max_length=255)
+    holder_address = models.TextField()
+    holder_address2 = models.TextField(blank=True, null=True)
+    holder_address3 = models.TextField(blank=True, null=True)
+    holder_city = models.CharField(max_length=255, blank=True, null=True)
+    holder_state = models.CharField(max_length=255, blank=True, null=True)
+    holder_postcode = models.CharField(blank=True, null=True, max_length=255)
+    holder_country = models.CharField(max_length=255, blank=True, null=True)
+    holder_status = models.CharField(default='1', max_length=1, choices=CLIENT_STATUS_CHOICES)
+    product_name = models.CharField(max_length=255)
+    plant_identity = models.CharField(max_length=255, blank=True, null=True)
+    product_standard = models.CharField(max_length=255)
+    product_description = models.TextField()
+    brands = models.ManyToManyField(Brand, blank=True)
+    country = CountryField(default='MY')
+    manufacturer = models.CharField(max_length=255)
+    manufacturer_address = models.TextField()
+    manufacturer_address2 = models.TextField(blank=True, null=True)
+    manufacturer_address3 = models.TextField(blank=True, null=True)
+    manufacturer_city = models.CharField(max_length=255, blank=True, null=True)
+    manufacturer_state = models.CharField(max_length=255, blank=True, null=True)
+    manufacturer_postcode = models.CharField(blank=True, null=True, max_length=255)
+    manufacturer_country = models.CharField(max_length=255, blank=True, null=True)
+    information = models.TextField(blank=True)
+    status = models.CharField(default='1', max_length=1, choices=Certificate.STATUS_CHOICES)
+    qr_image = models.ImageField(blank=True, null=True, upload_to='QRCode/')
+
+    def __str__(self):
+        return self.certificate_no
+
+        # save method
+
+    def get_admin_url(self, request):
+        return request.build_absolute_uri(
+            reverse("admin:%s_%s_change" % (self._meta.app_label, self._meta.model_name), args=(self.id,)))
+
+    def get_absolute_url(self,request):
+        return reverse('product_detail', args=[str(self.id)])
+
+
+
+
+class PublishProduct(models.Model):
+    # product_name=models.CharField(max_length=255)
+    certificate = models.ForeignKey(PublishCertificate, null=True, blank=True, on_delete=models.CASCADE)
+    brand = models.CharField(blank=True, null=True, max_length=255)
+    model = models.TextField(null=True, blank=True)
+    rating = models.TextField(null=True, blank=True)
+    type = models.TextField(null=True, blank=True)
+    size = models.TextField(null=True, blank=True)
+    material = models.TextField(null=True, blank=True)
+    rmc_producer_code=models.TextField("Ready-Mixed Concrete Producer's Code", null=True, blank=True)
+    additional_info = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.brand
