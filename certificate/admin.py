@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django_summernote.admin import SummernoteModelAdmin
+from certificate.forms import AutocompleteForm
 from certificate.models import Certificate, Standards, Brand, ProductDescription, Product, PublishCertificate, \
     PublishProduct
 from ikramqa import settings
@@ -58,7 +59,7 @@ class PublishProductInlineFormset(forms.models.BaseInlineFormSet):
         # get forms that actually have valid data
         # count = 0
         # print('cd0', self.cleaned_data[0]['certificate'].template)
-        print('forms', self.forms)
+        # print('forms', self.forms)
         for form in self.forms:
             try:
                 if form.cleaned_data:
@@ -100,7 +101,8 @@ class CertAdmin(SummernoteModelAdmin):
                     'short_product_standard', 'status', 'generate_pdf_preview_html')
     exclude_fields = ['qr_image', 'image_tag']
     view_on_site = False
-    readonly_fields = ('image_tag','publish_date')
+    readonly_fields = ('image_tag', 'publish_date')
+    form = AutocompleteForm
 
     # temporary removed image_tag
 
@@ -162,15 +164,15 @@ class CertAdmin(SummernoteModelAdmin):
     fieldsets = (
         ('Certificate Details', {
             'fields': (
-            'certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status')
+                'certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status')
         }),
         ('Dates Info', {
             'fields': ('date_original_issue', 'date_renewal', 'date_amendment', 'expiry_date', 'publish_date')
         }),
         ('Product Info', {
             'fields': (
-            'product_name', 'plant_identity', 'brands', 'product_standard', 'product_description', 'manufacturer',
-            'manufacturer_address')
+                'product_name', 'plant_identity', 'brands', 'product_standard', 'product_description', 'manufacturer',
+                'manufacturer_address')
         }),
         ('Annex Info', {
             'fields': ('information',)
@@ -229,7 +231,7 @@ class CertAdmin(SummernoteModelAdmin):
 
                 msg_dict = {
                     "name": opts.verbose_name,
-                    "obj": format_html('<a href="{}">{}</a>',link, obj),
+                    "obj": format_html('<a href="{}">{}</a>', link, obj),
                 }
                 msg = format_html(
                     _(
@@ -238,7 +240,6 @@ class CertAdmin(SummernoteModelAdmin):
                     **msg_dict,
                 )
                 self.message_user(request, msg, messages.SUCCESS)
-
 
                 obj.publish_date = datetime.now()
                 obj.save()
@@ -314,7 +315,6 @@ admin.site.register(Brand, BrandSiteAdmin)
 
 
 class PublishCertAdmin(admin.ModelAdmin):
-
     change_form_template = "admin/custom_change_form.html"
 
     search_fields = ['certificate_no', 'certificate_holder__name']
@@ -325,9 +325,10 @@ class PublishCertAdmin(admin.ModelAdmin):
                     'status')
     # exclude_fields = ['qr_image']
     view_on_site = False
+
     # fields = ('image_tag',)
 
-    def image_tag(self,request):
+    def image_tag(self, request):
         print(request.qr_image.url)
         return mark_safe('<img src="%s" width="150" height="150" />' % (request.qr_image.url))
 
@@ -335,7 +336,8 @@ class PublishCertAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         # print('ro fields', [f.name for f in self.model._meta.fields if f.name != 'information'] + [field.name for field in obj._meta.many_to_many])
-        return [f.name for f in self.model._meta.fields] + [field.name for field in obj._meta.many_to_many] + ['image_tag']
+        return [f.name for f in self.model._meta.fields] + [field.name for field in obj._meta.many_to_many] + [
+            'image_tag']
 
     inlines = [PublishProductInline]
 
@@ -346,7 +348,8 @@ class PublishCertAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
 
         if object_id != None:
-            extra_context = dict(show_save=False, show_save_and_continue=False, show_delete=False, show_save_and_add_another=False)
+            extra_context = dict(show_save=False, show_save_and_continue=False, show_delete=False,
+                                 show_save_and_add_another=False)
             extra_context['custom_button_publish'] = True  # Here
         return super().changeform_view(request, object_id, form_url, extra_context)
 
@@ -364,7 +367,7 @@ class PublishCertAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Certificate Details', {
             'fields': (
-                'certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status','image_tag')
+                'certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status', 'image_tag')
         }),
         ('Dates Info', {
             'fields': ('date_original_issue', 'date_renewal', 'date_amendment', 'expiry_date')
@@ -379,8 +382,8 @@ class PublishCertAdmin(admin.ModelAdmin):
         }),
     )
 
-admin.site.register(PublishCertificate, PublishCertAdmin)
 
+admin.site.register(PublishCertificate, PublishCertAdmin)
 
 # class PublishProductAdmin(admin.ModelAdmin):
 #     list_display = ('certificate', 'brand')
