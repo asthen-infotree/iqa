@@ -5,7 +5,7 @@ from django.contrib.admin.widgets import AutocompleteSelect
 from certificate.models import Certificate, PublishCertificate
 
 
-class MyForm(forms.ModelForm):
+class AutocompleteForm(forms.ModelForm):
     class Meta:
         widgets = {
             'manufacturer_address': AutocompleteSelect(

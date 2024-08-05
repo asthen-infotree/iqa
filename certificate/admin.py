@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django_summernote.admin import SummernoteModelAdmin
+from certificate.forms import AutocompleteForm
 from certificate.models import Certificate, Standards, Brand, ProductDescription, Product, PublishCertificate, \
     PublishProduct
 from ikramqa import settings
@@ -59,7 +60,7 @@ class PublishProductInlineFormset(forms.models.BaseInlineFormSet):
         # get forms that actually have valid data
         # count = 0
         # print('cd0', self.cleaned_data[0]['certificate'].template)
-        print('forms', self.forms)
+        # print('forms', self.forms)
         for form in self.forms:
             try:
                 if form.cleaned_data:
@@ -101,7 +102,8 @@ class CertAdmin(SummernoteModelAdmin):
                     'short_product_standard', 'status', 'generate_pdf_preview_html')
     exclude_fields = ['qr_image', 'image_tag']
     view_on_site = False
-    readonly_fields = ('image_tag','publish_date')
+    readonly_fields = ('image_tag', 'publish_date')
+    form = AutocompleteForm
 
     # temporary removed image_tag
 

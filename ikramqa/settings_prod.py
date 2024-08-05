@@ -238,3 +238,8 @@ mimetypes.add_type("text/css", ".css", True)
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
 SOCIALACCOUNT_ADAPTER = 'users.adapter.MySocialAccount'
+
+SUMMERNOTE_THEME = 'bs5'
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+}
