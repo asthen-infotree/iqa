@@ -90,7 +90,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CSRF_TRUSTED_ORIGINS = ['https://ikramqa.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['https://ikramqa.azurewebsites.net', 'https://ikramqa.com.my']
 
 ROOT_URLCONF = 'ikramqa.urls'
 
