@@ -229,7 +229,7 @@ def publish_certificate(request,obj):
             publish_obj.manufacturer_city = obj.manufacturer_address.city
             publish_obj.manufacturer_state = obj.manufacturer_address.state
             publish_obj.manufacturer_postcode = obj.manufacturer_address.postcode
-            # publish_obj.manufacturer_country = obj.manufacturer_address.country
+            publish_obj.manufacturer_country = obj.manufacturer_address.country
             publish_obj.information = obj.information
             publish_obj.status = obj.status
 
