@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 DEV_MODE = os.getenv('DEV_MODE')
 
-ALLOWED_HOSTS = ['ikramqa.azurewebsites.net', '127.0.0.1', 'ikramqa.com.my']
+ALLOWED_HOSTS = ['ikramqa.azurewebsites.net', '127.0.0.1', 'ikramqa.com.my','www.ikramqa.com.my']
 
 INSTALLED_APPS = [
     # 'django.contrib.sites',
