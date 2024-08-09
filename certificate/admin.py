@@ -319,8 +319,8 @@ admin.site.register(Brand, BrandSiteAdmin)
 
 
 class PublishCertAdmin(admin.ModelAdmin):
-
     change_form_template = "admin/custom_change_form.html"
+    change_list_template = "admin/custom_change_list.html"
 
     search_fields = ['certificate_no', 'certificate_holder__name']
     # summernote_fields = ('information',)
@@ -340,7 +340,8 @@ class PublishCertAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         # print('ro fields', [f.name for f in self.model._meta.fields if f.name != 'information'] + [field.name for field in obj._meta.many_to_many])
-        return [f.name for f in self.model._meta.fields] + [field.name for field in obj._meta.many_to_many] + ['image_tag']
+        return [f.name for f in self.model._meta.fields] + [field.name for field in obj._meta.many_to_many] + [
+            'image_tag']
 
     inlines = [PublishProductInline]
 
