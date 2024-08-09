@@ -316,6 +316,7 @@ admin.site.register(Brand, BrandSiteAdmin)
 
 class PublishCertAdmin(admin.ModelAdmin):
     change_form_template = "admin/custom_change_form.html"
+    change_list_template = "admin/custom_change_list.html"
 
     search_fields = ['certificate_no', 'certificate_holder__name']
     # summernote_fields = ('information',)
