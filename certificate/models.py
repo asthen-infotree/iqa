@@ -187,9 +187,13 @@ class Product(models.Model):
     material = models.TextField(null=True, blank=True)
     rmc_producer_code=models.TextField("Ready-Mixed Concrete Producer's Code", null=True, blank=True)
     additional_info = models.TextField(null=True, blank=True)
+    order = models.PositiveIntegerField(default=0, blank=True, null=True)
 
     def __str__(self):
         return self.brand
+
+    class Meta:
+        ordering = ['order']
 
 
 class ProductDescription(models.Model):
@@ -289,6 +293,10 @@ class PublishProduct(models.Model):
     material = models.TextField(null=True, blank=True)
     rmc_producer_code=models.TextField("Ready-Mixed Concrete Producer's Code", null=True, blank=True)
     additional_info = models.TextField(null=True, blank=True)
+    order = models.PositiveIntegerField(default=0, blank=True, null=True)
 
     def __str__(self):
         return self.brand
+
+    class Meta:
+        ordering = ['order']

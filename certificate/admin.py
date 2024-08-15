@@ -1,7 +1,11 @@
 from datetime import datetime
 from io import BytesIO
 
+from django.db.models import Max
+from django.db.models.functions import Coalesce
+from django.forms import widgets, BaseInlineFormSet
 import qrcode
+from adminsortable2.admin import SortableStackedInline, SortableAdminBase
 from django.contrib import admin, messages
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -19,7 +23,59 @@ from certificate.views import makeWatermark, render_pdf_view, publish_certificat
 
 
 # Register your models here.
-class ProductInlineFormset(forms.models.BaseInlineFormSet):
+# class ProductInlineFormset(forms.models.BaseInlineFormSet):
+class CustomInlineFormSetMixin:
+    def __init__(self, default_order_direction=None, default_order_field=None, **kwargs):
+        self.default_order_direction = default_order_direction
+        self.default_order_field = default_order_field
+        if default_order_field:
+            if default_order_field in self.form.base_fields:
+                print('default_order_field', default_order_field)
+                order_field = self.form.base_fields[default_order_field]
+            else:
+                order_field = self.model._meta.get_field(default_order_field).formfield()
+                self.form.base_fields[default_order_field] = order_field
+                self.form.declared_fields[default_order_field] = order_field
+
+            order_field.is_hidden = False
+            order_field.required = False
+            order_field.widget = widgets.NumberInput(attrs={'class': '_reorder_'})
+
+        super().__init__(**kwargs)
+
+    def get_max_order(self):
+        query_set = self.model.objects.filter(
+            **{self.fk.get_attname(): self.instance.pk}
+        )
+        return query_set.aggregate(
+            max_order=Coalesce(Max(self.default_order_field), 0)
+        )['max_order']
+
+    def save_new(self, form, commit=True):
+        """
+        New objects do not have a valid value in their ordering field.
+        On object save, add an order bigger than all other order fields
+        for the current parent_model.
+        Strange behaviour when field has a default, this might be evaluated
+        on new object and the value will be not None, but the default value.
+        """
+        obj = super().save_new(form, commit=False)
+
+        order_field_value = getattr(obj, self.default_order_field, None)
+        if order_field_value is None or order_field_value >= 0:
+            max_order = self.get_max_order()
+            setattr(obj, self.default_order_field, max_order + 1)
+        if commit:
+            obj.save()
+        # form.save_m2m() can be called via the formset later on
+        # if commit=False
+        if commit and hasattr(form, 'save_m2m'):
+            form.save_m2m()
+        return obj
+
+
+class ProductInlineFormset(CustomInlineFormSetMixin,BaseInlineFormSet):
+
     def clean(self):
         # get forms that actually have valid data
         # count = 0
@@ -42,10 +98,12 @@ class ProductInlineFormset(forms.models.BaseInlineFormSet):
         #     raise forms.ValidationError('You must have at least one order')
 
 
-class ProductInline(admin.StackedInline):
+# class ProductInline(admin.StackedInline):
+class ProductInline(SortableStackedInline):
     model = Product
     readonly_fields = ('id',)
-    ordering = ('id',)
+    # ordering = ['order']
+
     extra = 0
     show_change_link = True
     verbose_name = "Annex"
@@ -54,33 +112,37 @@ class ProductInline(admin.StackedInline):
 
 
 class PublishProductInlineFormset(forms.models.BaseInlineFormSet):
-
-    def clean(self):
+    pass
+    # def clean(self):
         # get forms that actually have valid data
         # count = 0
         # print('cd0', self.cleaned_data[0]['certificate'].template)
         # print('forms', self.forms)
-        for form in self.forms:
-            try:
-                if form.cleaned_data:
-                    # count += 1
-                    if form.cleaned_data['certificate'].template == '3' and form.cleaned_data[
-                        'rmc_producer_code'] == "":
-                        raise forms.ValidationError([{'rmc_producer_code': ['You must have selected template 3 and rmc producer code \
-                        cannot be null!']}])
+        ## comment out for copy files
+        # for form in self.forms:
+        #     try:
+        #         if form.cleaned_data:
+        #             # count += 1
+        #             if form.cleaned_data['certificate'].template == '3' and form.cleaned_data[
+        #                 'rmc_producer_code'] == "":
+        #                 raise forms.ValidationError([{'rmc_producer_code': ['You must have selected template 3 and rmc producer code \
+        #                 cannot be null!']}])
+        #
+        #     except AttributeError:
+        #         # annoyingly, if a subform is invalid Django explicity raises
+        #         # an AttributeError for cleaned_data
+        #         pass
 
-            except AttributeError:
-                # annoyingly, if a subform is invalid Django explicity raises
-                # an AttributeError for cleaned_data
-                pass
         # if count < 1:
         #     raise forms.ValidationError('You must have at least one order')
 
 
 class PublishProductInline(admin.StackedInline):
     model = PublishProduct
-    readonly_fields = [f.name for f in model._meta.fields]
+    exclude = ['order']
+    readonly_fields = [f.name for f in model._meta.fields if f.name != 'order']
     ordering = ('id',)
+    can_delete = False
     extra = 0
     show_change_link = True
     verbose_name = "Annex"
@@ -88,7 +150,7 @@ class PublishProductInline(admin.StackedInline):
     formset = PublishProductInlineFormset
 
 
-class CertAdmin(SummernoteModelAdmin):
+class CertAdmin(SortableAdminBase, SummernoteModelAdmin):
     # change_list_template = 'admin/custom_change_list.html'
     # change_form_template = 'admin/custom_change_form.html'
     change_form_template = "admin/custom_change_form.html"
@@ -291,6 +353,8 @@ admin.site.register(Standards, StandardAdmin)
 admin.site.register(Product)
 
 
+
+
 class ProductDesInline(admin.StackedInline):
     model = ProductDescription
     readonly_fields = ('id',)
@@ -330,7 +394,6 @@ class PublishCertAdmin(admin.ModelAdmin):
     # fields = ('image_tag',)
 
     def image_tag(self, request):
-        print(request.qr_image.url)
         return mark_safe('<img src="%s" width="150" height="150" />' % (request.qr_image.url))
 
     image_tag.short_description = 'Image'

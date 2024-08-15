@@ -88,7 +88,7 @@ class ClientAddress(models.Model):
         # )
 
     def save(self):
-        print(self.clean())
+        # print(self.clean())
         super(ClientAddress, self).save()
 
 class Manufacturer(models.Model):
