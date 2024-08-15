@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'datatableview',
     'corsheaders',
+    'adminsortable2'
 ]
 
 SITE_ID=1
