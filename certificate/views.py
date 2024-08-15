@@ -93,7 +93,7 @@ def render_pdf_view(request, cert_id):
     # print('c_id',cert_id)
     obj = Certificate.objects.get(id=cert_id)
     producer_code = ''
-    products = obj.product_set.all().order_by('id')
+    products = obj.product_set.all().order_by('order')
     if obj.template == '1':
         template_path = "certificate/certificate_template.html"
     elif obj.template == '2':
@@ -136,7 +136,7 @@ def render_pdf_view(request, cert_id):
 def published_render_pdf_view(request, cert_id):
     obj = PublishCertificate.objects.get(id=cert_id)
     producer_code = ''
-    products = obj.publishproduct_set.all().order_by('id')
+    products = obj.publishproduct_set.all().order_by('order')
     if obj.template == '1':
         template_path = "certificate/publish_certificate_template.html"
     elif obj.template == '2':
