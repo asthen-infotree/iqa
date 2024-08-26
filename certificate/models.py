@@ -19,10 +19,10 @@ from users.models import Client, ClientAddress, Manufacturer, ManufacturerAddres
 
 # Create your models here.
 class Standards(models.Model):
-    standard = models.CharField(max_length=255)
-    standard_number = models.CharField(max_length=255)
-    year = models.CharField(max_length=50)
-    standard_name = models.CharField(max_length=255)
+    standard = models.TextField(max_length=255)
+    standard_number = models.TextField(max_length=255)
+    year = models.TextField(max_length=50)
+    standard_name = models.TextField(max_length=255)
     remark = models.TextField(max_length=255, blank=True)
 
     def __str__(self):
@@ -114,7 +114,9 @@ class Certificate(models.Model):
     STATUS_CHOICES = (
         ("1", "DRAFT"),
         ("2", "PUBLISHED"),
-        ("3", "EXPIRED"),
+        ("3", "WITHDRAWN"),
+        ("4", "SUSPENDED"),
+        ("5", "TERMINATED"),
     )
 
     TEMPLATE_CHOICES = (
