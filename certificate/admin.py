@@ -384,7 +384,7 @@ class PublishCertAdmin(admin.ModelAdmin):
     change_form_template = "admin/custom_change_form.html"
     change_list_template = "admin/custom_change_list.html"
 
-    search_fields = ['certificate_no', 'certificate_holder__name']
+    search_fields = ['certificate_no', 'status']
     # summernote_fields = ('information',)
     # autocomplete_fields = ['manufacturer', 'certificate_holder', 'manufacturer_address', 'holder_address']
     # actions = [makeWatermark]
