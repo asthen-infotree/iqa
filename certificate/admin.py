@@ -222,22 +222,20 @@ class CertAdmin(SortableAdminBase, SummernoteModelAdmin):
     #     urls = super().get_urls()
     #     return urls
 
-    change_list_template = 'admin/custom_change_list.html'
-    change_form_template = 'admin/custom_change_form.html'
     inlines = [ProductInline]
 
     fieldsets = (
         ('Certificate Details', {
             'fields': (
-            'certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status')
+                'certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status')
         }),
         ('Dates Info', {
             'fields': ('date_original_issue', 'date_renewal', 'date_amendment', 'expiry_date', 'publish_date')
         }),
         ('Product Info', {
             'fields': (
-            'product_name', 'plant_identity', 'brands', 'product_standard', 'product_description', 'manufacturer',
-            'manufacturer_address')
+                'product_name', 'plant_identity', 'brands', 'product_standard', 'product_description', 'manufacturer',
+                'manufacturer_address')
         }),
         ('Annex Info', {
             'fields': ('information',)
@@ -296,7 +294,7 @@ class CertAdmin(SortableAdminBase, SummernoteModelAdmin):
 
                 msg_dict = {
                     "name": opts.verbose_name,
-                    "obj": format_html('<a href="{}">{}</a>',link, obj),
+                    "obj": format_html('<a href="{}">{}</a>', link, obj),
                 }
                 msg = format_html(
                     _(
@@ -305,7 +303,6 @@ class CertAdmin(SortableAdminBase, SummernoteModelAdmin):
                     **msg_dict,
                 )
                 self.message_user(request, msg, messages.SUCCESS)
-
 
                 obj.publish_date = datetime.now()
                 obj.save()
@@ -354,7 +351,9 @@ class StandardAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Standards, StandardAdmin)
-admin.site.register(Product)
+# admin.site.register(Product)
+
+
 
 
 class ProductDesInline(admin.StackedInline):
@@ -392,6 +391,7 @@ class PublishCertAdmin(admin.ModelAdmin):
                     'status')
     # exclude_fields = ['qr_image']
     view_on_site = False
+
     # fields = ('image_tag',)
 
     def image_tag(self, request):
@@ -413,7 +413,8 @@ class PublishCertAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
 
         if object_id != None:
-            extra_context = dict(show_save=False, show_save_and_continue=False, show_delete=False, show_save_and_add_another=False)
+            extra_context = dict(show_save=False, show_save_and_continue=False, show_delete=False,
+                                 show_save_and_add_another=False)
             extra_context['custom_button_publish'] = True  # Here
         return super().changeform_view(request, object_id, form_url, extra_context)
 
@@ -431,7 +432,7 @@ class PublishCertAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Certificate Details', {
             'fields': (
-                'certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status','image_tag')
+                'certificate_no', 'certificate_holder', 'holder_address', 'country', 'template', 'status', 'image_tag')
         }),
         ('Dates Info', {
             'fields': ('date_original_issue', 'date_renewal', 'date_amendment', 'expiry_date')
@@ -446,8 +447,8 @@ class PublishCertAdmin(admin.ModelAdmin):
         }),
     )
 
-admin.site.register(PublishCertificate, PublishCertAdmin)
 
+admin.site.register(PublishCertificate, PublishCertAdmin)
 
 # class PublishProductAdmin(admin.ModelAdmin):
 #     list_display = ('certificate', 'brand')
