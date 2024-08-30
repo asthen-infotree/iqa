@@ -350,7 +350,7 @@ class StandardAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Standards, StandardAdmin)
-admin.site.register(Product)
+# admin.site.register(Product)
 
 
 
