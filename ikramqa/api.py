@@ -74,14 +74,14 @@ def hello(request):
 
 
 class StandardSchema(ModelSchema):
-    standard_no: str = Field(None, repr=True)
+    STANDARD_NO: str = Field(None, repr=True)
 
     class Meta:
         model = Standards
         exclude = ['id', 'standard_number', 'standard', 'year', 'remark']
 
     @staticmethod
-    def resolve_standard_no(obj):
+    def resolve_STANDARD_NO(obj):
         standards = obj.__str__()
         return standards
 
@@ -106,35 +106,54 @@ class StandardSchema(ModelSchema):
 
 
 class ProductSchema(ModelSchema):
+    BRAND: str = Field("", alias="brand")
+    MODEL: str = Field("", alias="model")
+    RATING: str = Field("", alias="rating")
+    TYPE: str = Field("", alias="type")
+    SIZE: str = Field("", alias="size")
+
     class Meta:
         model = PublishProduct
-        exclude = ['id', 'certificate', 'material', 'rmc_producer_code', 'additional_info', 'order']
+        exclude = ['id', 'certificate', 'material', 'rmc_producer_code', 'additional_info', 'order', 'brand',
+                   'model', 'rating', 'type', 'size']
 
 
 class Standard1Schema(Schema):
-    standard_name: str
-    standard_number: str
+    STANDARD_NAME: str = Field("", alias="standard_name")
+    STANDARD_NUMBER: str = Field("", alias="standard_number")
 
 
 class CertificateModelSchema(ModelSchema):
-    roc_no: str = ""
-    category: str = "A"
+    ROC_NO: str = ""
+    CATEGORY: str = "A"
     CB_ID: str = ""
-    start_certificates_date: datetime.date = Field(None)
-    expiry_certificates_date: datetime.date = Field("", alias="expiry_date")
-    manufacturer_name: str = Field("", alias="manufacturer")
+    START_CERTIFICATES_DATE: datetime.date = Field(None)
+    EXPIRY_CERTIFICATES_DATE: datetime.date = Field("", alias="expiry_date")
+    MANUFACTURER_NAME: str = Field("", alias="manufacturer")
+    MANUFACTURER_ADDRESS: str = Field("", alias="manufacturer_address")
+    MANUFACTURER_ADDRESS2: str = Field("", alias="manufacturer_address2")
+    MANUFACTURER_ADDRESS3: str = Field("", alias="manufacturer_address3")
+    MANUFACTURER_POSTCODE: str = Field("", alias="manufacturer_postcode")
+    MANUFACTURER_CITY: str = Field("", alias="manufacturer_city")
+    MANUFACTURER_STATE: str = Field("", alias="manufacturer_state")
+    CERTIFICATE_NO: str = Field("", alias="certificate_no")
+    PRODUCT_NAME: str = Field("", alias="product_name")
+
+
+
     # standards: List[StandardSchema] = Field(None)
     MODEL_INFOS: List[ProductSchema] = Field(None)
-    standards: list
+    STANDARDS: list
     CERT_STATUS: str = ""
 
     class Meta:
         model = PublishCertificate
         exclude = ['id', 'country', 'information', 'date_renewal', 'template', 'date_original_issue', 'expiry_date',
                    'draft_certificate', 'qr_image', 'brands', 'plant_identity', 'date_amendment', 'product_description',
-                   'manufacturer_country', 'manufacturer_country', 'holder_country', "manufacturer", 'status',
-                   'certificate_holder', 'holder_address', 'holder_address2', 'holder_address3', 'holder_city',
-                   'holder_state', 'holder_postcode', 'holder_country', 'holder_status', 'product_standard'
+                   'manufacturer_country', 'manufacturer_country', 'holder_country', "manufacturer", "manufacturer_address",
+                   "manufacturer_address2","manufacturer_address3", "manufacturer_city", "manufacturer_state", "manufacturer_postcode",
+                   'status', 'certificate_holder', 'holder_address', 'holder_address2', 'holder_address3', 'holder_city', 'product_name',
+                   'holder_state', 'holder_postcode', 'holder_country', 'holder_status', 'product_standard', 'certificate_no'
                    ]
 
     # @staticmethod
@@ -144,7 +163,7 @@ class CertificateModelSchema(ModelSchema):
     #     return [standards]
 
     @staticmethod
-    def resolve_standards(obj):
+    def resolve_STANDARDS(obj):
         standards = obj.draft_certificate.product_standard.remark
 
         standard_name = obj.draft_certificate.product_standard.standard_name
@@ -153,14 +172,14 @@ class CertificateModelSchema(ModelSchema):
         listdictionary = []
         for i in items:
 
-            dictonary['standard_no'] = i
-            dictonary['standard_name'] = standard_name
+            dictonary['STANDARD_NO'] = i
+            dictonary['STANDARD_NAME'] = standard_name
             listdictionary.append(dictonary)
             dictonary = {}
         return listdictionary
 
     @staticmethod
-    def resolve_start_certificates_date(obj):
+    def resolve_START_CERTIFICATES_DATE(obj):
         if obj.date_renewal is not None:
             return obj.date_renewal
         return obj.date_original_issue
@@ -170,9 +189,9 @@ class CertificateModelSchema(ModelSchema):
     #     return obj.publishproduct_set.order_by('order')
 
     @staticmethod
-    def resolve_roc_no(obj, context):
+    def resolve_ROC_NO(obj, context):
         request = context["request"]
-        return request.GET['roc_no']
+        return request.GET['ROC_NO']
 
     @staticmethod
     def resolve_CB_ID(obj, context):
@@ -251,19 +270,40 @@ def cert_bad_request(request, exc):
                                )
 
 
+class InvalidCBID(Exception):
+    pass
+
+
+@api.exception_handler(InvalidCBID)
+def cert_invalid_cbid(request, exc):
+    return api.create_response(request, {
+        "RESULT": None,
+        "SUCCESS": False,
+        "ERROR": [
+            {
+                "CODE": 900,
+                "MESSAGE": "Invalid CB ID",
+                "DETAILS": "CB ID not match"
+            },
+        ]
+
+    }, status=404
+                               )
+
+
 @api.get("/certificate", response=CertificateModelSchema)
-def get_certificate(request, certificate_no: str = "", roc_no: str = "", category: str = "", CB_ID: str = ""):
-    if not certificate_no or not roc_no or not category or not CB_ID:
+def get_certificate(request, CERTIFICATE_NO: str = "", ROC_NO: str = "", CATEGORY: str = "", CB_ID: str = ""):
+    if not CERTIFICATE_NO or not ROC_NO or not CATEGORY or not CB_ID:
         raise BadRequest
     if CB_ID != "IKRAM":
-        raise Cert404
+        raise InvalidCBID
 
     try:
-        query = PublishCertificate.objects.get(certificate_no=certificate_no)
+        query = PublishCertificate.objects.get(certificate_no=CERTIFICATE_NO)
     except PublishCertificate.DoesNotExist:
         raise Cert404
 
     if query:
-        if (query.draft_certificate.certificate_holder.roc_no != roc_no) or (category != 'A'):
+        if (query.draft_certificate.certificate_holder.roc_no != ROC_NO) or (CATEGORY != 'A'):
             raise CertInvalid
     return query
