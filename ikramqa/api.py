@@ -133,8 +133,8 @@ class CertificateModelSchema(ModelSchema):
     MANUFACTURER_ADDRESS: str = Field("", alias="manufacturer_address")
     MANUFACTURER_ADDRESS2: str = Field("", alias="manufacturer_address2")
     MANUFACTURER_ADDRESS3: str = Field("", alias="manufacturer_address3")
-    MANUFACTURER_POSTCODE: str = Field("", alias="manufacturer_postcode")
-    MANUFACTURER_CITY: str = Field("", alias="manufacturer_city")
+    MANUFACTURER_POSTCODE: str = Field(None)
+    MANUFACTURER_CITY: str = Field(None)
     MANUFACTURER_STATE: str = Field("", alias="manufacturer_state")
     CERTIFICATE_NO: str = Field("", alias="certificate_no")
     PRODUCT_NAME: str = Field("", alias="product_name")
@@ -184,9 +184,18 @@ class CertificateModelSchema(ModelSchema):
             return obj.date_renewal
         return obj.date_original_issue
 
-    # @staticmethod
-    # def resolve_products(obj):
-    #     return obj.publishproduct_set.order_by('order')
+    @staticmethod
+    def resolve_MANUFACTURER_POSTCODE(obj):
+        if obj.manufacturer_postcode:
+            return obj.manufacturer_postcode
+        else: return ""
+
+    @staticmethod
+    def resolve_MANUFACTURER_CITY(obj):
+        if obj.manufacturer_city:
+            return obj.manufacturer_city
+        else:
+            return ""
 
     @staticmethod
     def resolve_ROC_NO(obj, context):
