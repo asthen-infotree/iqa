@@ -304,6 +304,6 @@ def get_certificate(request, CERTIFICATE_NO: str = "", ROC_NO: str = "", CATEGOR
         raise Cert404
 
     if query:
-        if (query.draft_certificate.certificate_holder.roc_no != ROC_NO) or (CATEGORY != 'A'):
+        if CATEGORY != 'A':
             raise CertInvalid
     return query
