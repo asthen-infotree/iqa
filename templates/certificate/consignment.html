@@ -2,10 +2,24 @@
 
 
 {% block content %}
+{% load static %}
 <div class="mt-5">
       <h2 class="text-center">Consignment</h2>
 </div>
 <div class="container fill mt-5  mb-5">
-  <p class="text-muted">No data found ...</p>
+
+    <div class="row">
+            <div class="col-sm-4 mb-3 mb-sm-0 d-flex">
+              <div class="card">
+                <div class="card-body text-center d-flex flex-column">
+                  <h5 class="card-title">IQAS-MF-83 CONSIGNMENT & TESTING</h5>
+                  <div class="d-grid gap-2 col-6 mt-auto mx-auto">
+                    <a href="{% static 'files/Consignment/IQAS-ML-F-83 CONSIGNMENT SAMPLING & TESTING.pdf' %}" class="btn btn-primary" target="_blank">View</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+<!--  <p class="text-muted">No data found ...</p>-->
 </div>
 {% endblock content %}
