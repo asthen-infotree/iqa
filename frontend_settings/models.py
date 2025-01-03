@@ -14,7 +14,7 @@ class Feedback(models.Model):
     email = models.CharField(max_length=255)
     phone_no = models.CharField(max_length=255)
     subject = models.CharField(max_length=255)
-    message = models.TextField(max_length=255)
+    message = models.TextField()
 
     def __str__(self):
         return self.subject
